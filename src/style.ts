@@ -117,7 +117,7 @@ export const styles = css`
 
   .card-content,
   .row {
-    max-width: 470px;
+    max-width: none;
   }
   .lines {
     position: absolute;
@@ -166,7 +166,6 @@ export const styles = css`
   .lines svg {
     width: var(--lines-svg-flat-width);
     height: 100%;
-    max-width: 340px;
     position: relative;
   }
 
@@ -194,7 +193,6 @@ export const styles = css`
   .row {
     display: flex;
     justify-content: space-between;
-    max-width: 500px;
     margin: 0 auto;
   }
   .circle-container {
@@ -389,7 +387,6 @@ export const styles = css`
     margin-top: 2px;
     width: var(--lines-svg-not-flat-multi-indiv-width);
     top: var(--lines-svg-not-flat-line-top);
-    max-width: 340px;
     position: relative;
   }
   .circle-container.low-carbon {
@@ -707,6 +704,13 @@ export const styles = css`
     display: flex;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  /* Without this the flex item shrinks to its content and the circles end up
+     squeezed together on the left instead of using the full card width. */
+  .pfcp-flow {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .card-content.has-side-zone {
