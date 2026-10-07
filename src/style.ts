@@ -957,9 +957,7 @@ export const styles = css`
     /* Tint layered over an opaque base, so the shape keeps its translucent look
        without the flow lines showing through it. */
     background-color: var(--card-background-color, var(--ha-card-background, var(--primary-background-color)));
-    background-image: linear-gradient(
-      color-mix(in srgb, var(--pfcp-shape, var(--pfcp-shape-fallback)) var(--pfcp-shape-strength), transparent) 0 0
-    );
+    background-image: linear-gradient(color-mix(in srgb, var(--pfcp-shape, var(--pfcp-shape-fallback)) var(--pfcp-shape-strength), transparent) 0 0);
     background-clip: padding-box;
     border-radius: var(--pfcp-shape-radius);
     font-size: 12px;
@@ -1075,5 +1073,4 @@ export const styles = css`
   .card-content.appearance-mushroom .pfcp-sub-values {
     font-weight: 500;
   }
-
 `;
