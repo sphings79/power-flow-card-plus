@@ -237,6 +237,7 @@ export const advancedOptionsSchema = memoizeOne((localize, displayZeroLinesMode:
             options: [
               { value: "classic", label: "Classic" },
               { value: "mushroom", label: "Mushroom" },
+              { value: "bubble", label: "Bubble" },
             ],
             mode: "dropdown",
           },

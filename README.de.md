@@ -316,13 +316,17 @@ Bei null Ertrag wird die Zeile **grau** statt rot: Nachts nichts zu produzieren 
 
 PV-Quellen und Ladequellen nehmen ebenfalls `energy_entity`, damit ihre kWh in der Liste neben Batterien und Einzelgeräten erscheinen.
 
+### Bubble-Optik
+
+`appearance: bubble` gestaltet die Karte nach [Bubble Card](https://github.com/Clooos/Bubble-Card): weiche Blasen mit dünnem Rand und Schatten statt Ringen, Listeneinträge als Pillen mit rundem Icon, erhabene Pillen-Knöpfe für den W/kWh-Schalter und die Zeitraum-Leiste (der aktive gefüllt mit der Akzentfarbe) und eine abgerundete Karte. Sie liest die `--bubble-*`-Theme-Variablen (`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-main-background-color`, `--bubble-icon-background-color`) und fällt ohne sie auf dein HA-Theme zurück. Wie `mushroom` ist das ein reiner Stilschalter.
+
 ### Mushroom-Optik
 
 `appearance: mushroom` stellt die Karte optisch so um, dass sie neben [Mushroom](https://github.com/piitaya/lovelace-mushroom)-Karten stimmig wirkt. Das ist ein reiner Stilschalter — keine Änderung an Entitäten, Layout oder Verhalten —, man kann also jederzeit zwischen beiden Looks wechseln.
 
 ```yaml
 type: custom:power-flow-card-plus-mushroom
-appearance: mushroom   # classic (Standard) | mushroom
+appearance: mushroom   # classic (Standard) | mushroom | bubble
 entities:
   grid:
     entity: sensor.grid_power
@@ -450,7 +454,7 @@ Wer den grafischen Editor bevorzugt, nimmt das Menü:
 | use_new_flow_rate_model     | `boolean` |                  false                   | Bei `true` nutzt die Karte die [neue Flussformel](#neue-flussformel).                                                                              |
 | sort_individual_devices     | `boolean` |            true (seit v0.3.1)            | Bei `true` werden Geräte nach Verbrauch → Entity-ID → alphabetisch sortiert.                                                                       |
 | allow_layout_break          | `boolean` |                  false                   | Erlaubt immer bis zu 4 Einzelgeräte, auch wenn der Platz nicht reicht — das Layout bricht dann sichtbar um.                                        |
-| appearance                  | `string`  |                `classic`                 | `classic` behält die ursprüngliche Optik mit umrandeten Kreisen. `mushroom` passt die Karte an [Mushroom](https://github.com/piitaya/lovelace-mushroom) an — siehe [Mushroom-Optik](#mushroom-optik). |
+| appearance                  | `string`  |                `classic`                 | `classic` behält die ursprüngliche Optik mit umrandeten Kreisen. `mushroom` passt die Karte an [Mushroom](https://github.com/piitaya/lovelace-mushroom) an — siehe [Mushroom-Optik](#mushroom-optik). `bubble` folgt [Bubble Card](https://github.com/Clooos/Bubble-Card) — siehe [Bubble-Optik](#bubble-optik). |
 
 #### Aktionen
 

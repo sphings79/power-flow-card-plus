@@ -1169,4 +1169,100 @@ export const styles = css`
   .card-content.appearance-mushroom .pfcp-sub-values {
     font-weight: 500;
   }
+
+  /* ===================================================================
+     Bubble appearance  (config: appearance: bubble)
+     Sits on top of the Mushroom rules above (the card carries both classes)
+     and restyles them after Bubble Card: soft bubbles with a thin outline and a
+     shadow, pill-shaped list entries, a rounded card. Every colour and radius
+     reads the matching --bubble-* variable first, so a Bubble theme carries over,
+     and falls back to the Home Assistant theme without one.
+     =================================================================== */
+  ha-card.appearance-bubble {
+    border: none;
+    border-radius: var(--bubble-border-radius, 32px);
+    background: var(--bubble-main-background-color, var(--card-background-color, var(--ha-card-background)));
+  }
+
+  .card-content.appearance-bubble {
+    --pfcp-shape-strength: 22%;
+    --pfcp-shape-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+    --pfcp-bubble-surface: var(--bubble-icon-background-color, var(--bubble-secondary-background-color, var(--card-background-color)));
+    --pfcp-bubble-accent: var(--bubble-accent-color, var(--primary-color, #03a9f4));
+    --pfcp-bubble-outline: 1px solid color-mix(in srgb, var(--primary-text-color) 12%, transparent);
+    --pfcp-bubble-shadow: var(--bubble-box-shadow, 0 2px 6px rgba(0, 0, 0, 0.14));
+  }
+
+  .card-content.appearance-bubble .circle {
+    background-color: var(--pfcp-bubble-surface);
+    border: 1px solid color-mix(in srgb, var(--pfcp-shape, var(--pfcp-shape-fallback)) 45%, transparent);
+    box-shadow: var(--pfcp-bubble-shadow);
+  }
+
+  .card-content.appearance-bubble .label {
+    font-weight: 600;
+  }
+
+  .card-content.appearance-bubble line,
+  .card-content.appearance-bubble path {
+    stroke-width: 2;
+  }
+
+  .card-content.appearance-bubble .pfcp-breakdown {
+    border-top: none;
+    gap: 8px 12px;
+  }
+
+  .card-content.appearance-bubble .pfcp-subs-title {
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  .card-content.appearance-bubble .pfcp-sub {
+    border-radius: var(--bubble-border-radius, 999px);
+    padding: 4px 14px 4px 4px;
+    gap: 10px;
+    background: var(--pfcp-bubble-surface);
+    border: var(--pfcp-bubble-outline);
+    box-shadow: var(--pfcp-bubble-shadow);
+  }
+
+  .card-content.appearance-bubble .pfcp-sub:hover {
+    background: color-mix(in srgb, var(--pfcp-sub-color) 14%, var(--pfcp-bubble-surface));
+  }
+
+  .card-content.appearance-bubble .pfcp-sub-icon {
+    --mdc-icon-size: 18px;
+    padding: 7px;
+    border-radius: var(--pfcp-shape-radius);
+    background: color-mix(in srgb, var(--pfcp-sub-color) 24%, var(--pfcp-bubble-surface));
+    color: var(--pfcp-sub-color);
+  }
+
+  /* Switch and period picker: raised pills, the active one filled with the accent. */
+  .card-content.appearance-bubble .pfcp-energy-option {
+    border: var(--pfcp-bubble-outline);
+    border-radius: 999px;
+    padding: 6px 13px;
+    background: var(--pfcp-bubble-surface);
+    color: var(--primary-text-color);
+    box-shadow: var(--pfcp-bubble-shadow);
+  }
+
+  .card-content.appearance-bubble .pfcp-energy-option.active {
+    background: var(--pfcp-bubble-accent);
+    border-color: var(--pfcp-bubble-accent);
+    color: var(--text-primary-color, #fff);
+  }
+
+  .card-content.appearance-bubble .pfcp-picker-units {
+    gap: 6px;
+  }
+
+  .card-content.appearance-bubble .pfcp-picker-units .pfcp-energy-option,
+  .card-content.appearance-bubble .pfcp-picker-units .pfcp-energy-option:first-child,
+  .card-content.appearance-bubble .pfcp-picker-units .pfcp-energy-option:last-child {
+    border-radius: 999px;
+    margin-left: 0;
+  }
 `;

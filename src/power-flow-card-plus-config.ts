@@ -31,8 +31,10 @@ interface mainConfigOptions {
    * - `classic` (default): outlined circles, the original look.
    * - `mushroom`: filled shapes, Mushroom typography, softer flow lines
    *   and a chip-styled breakdown list, to blend in with Mushroom cards.
+   * - `bubble`: soft filled bubbles, pill-shaped lists and a rounded card, to blend
+   *   in with Bubble Card. Follows the `--bubble-*` theme variables when present.
    */
-  appearance?: "classic" | "mushroom";
+  appearance?: "classic" | "mushroom" | "bubble";
   /**
    * Ordering of the individual devices.
    * `true` keeps the original behaviour (highest power first); pass `"name"` or

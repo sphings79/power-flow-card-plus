@@ -370,6 +370,17 @@ barely does.
 PV sources and charging sources take `energy_entity` too, so their kWh appear in
 the list alongside the batteries and individual devices.
 
+### Bubble appearance
+
+`appearance: bubble` styles the card after [Bubble Card](https://github.com/Clooos/Bubble-Card):
+soft bubbles with a thin outline and shadow instead of rings, pill-shaped list
+entries with a round icon, raised pill buttons for the W / kWh switch and the
+period picker (the active one filled with the accent colour), and a rounded card.
+It reads the `--bubble-*` theme variables (`--bubble-accent-color`,
+`--bubble-border-radius`, `--bubble-main-background-color`,
+`--bubble-icon-background-color`) and falls back to your Home Assistant theme
+when they are not set. Like `mushroom`, it is a pure styling switch.
+
 ### Mushroom appearance
 
 Set `appearance: mushroom` to restyle the card so it sits comfortably next to
@@ -379,7 +390,7 @@ the two looks at any time.
 
 ```yaml
 type: custom:power-flow-card-plus-mushroom
-appearance: mushroom   # classic (default) | mushroom
+appearance: mushroom   # classic (default) | mushroom | bubble
 entities:
   grid:
     entity: sensor.grid_power
@@ -518,7 +529,7 @@ Else, if you prefer the graphical editor, use the menu to add the resource:
 | use_new_flow_rate_model     | `boolean` |                  false                   | If `true`, the card will use the [New Flow Formula](#new-flow-formula).                                                                                                                                                  |
 | sort_individual_devices     | `boolean` |           true (since v0.3.1)            | If `true`, sort devices in order of power consumption -> entity id -> alphabetically.                                                                                                                                    |
 | allow_layout_break          | `boolean` |                  false                   | Always allow up to 4 individual devices to show, even when there is not enough space, causing visual layout break.                                                                                                       |
-| appearance                  | `string`  |                `classic`                 | `classic` keeps the original outlined-circle look. `mushroom` restyles the card to match [Mushroom](https://github.com/piitaya/lovelace-mushroom) cards — see [Mushroom appearance](#mushroom-appearance).                |
+| appearance                  | `string`  |                `classic`                 | `classic` keeps the original outlined-circle look. `mushroom` restyles the card to match [Mushroom](https://github.com/piitaya/lovelace-mushroom) cards — see [Mushroom appearance](#mushroom-appearance). `bubble` follows [Bubble Card](https://github.com/Clooos/Bubble-Card) — see [Bubble appearance](#bubble-appearance).                |
 
 #### Action Configuration
 

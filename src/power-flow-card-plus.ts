@@ -609,7 +609,9 @@ export class PowerFlowCardPlus extends LitElement {
       "card-content",
       this._config.full_size && "full-size",
       this._config.no_labels && "no-labels",
-      this._config.appearance === "mushroom" && "appearance-mushroom",
+      // Bubble builds on the Mushroom shapes and only restyles them.
+      (this._config.appearance === "mushroom" || this._config.appearance === "bubble") && "appearance-mushroom",
+      this._config.appearance === "bubble" && "appearance-bubble",
       (hasSideZone || reserveAny) && "has-side-zone",
       maxWidth && "has-max-width",
     ]
@@ -619,7 +621,7 @@ export class PowerFlowCardPlus extends LitElement {
     return html`
       <ha-card
         .header=${this._config.title}
-        class=${this._config.full_size ? "full-size" : ""}
+        class="${this._config.full_size ? "full-size" : ""} ${this._config.appearance === "bubble" ? "appearance-bubble" : ""}"
         style=${this._config.style_ha_card ? this._config.style_ha_card : ""}
       >
         <div
