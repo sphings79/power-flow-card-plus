@@ -392,6 +392,11 @@ export const styles = css`
     box-sizing: border-box;
     pointer-events: none;
   }
+  /* The line of the lower device starts at the bottom edge of its box, so any padding
+     there leaves a gap between the line and the circle. */
+  .right-individual-flow-container.bottom {
+    padding-bottom: 0;
+  }
   .right-individual-flow-container > svg {
     width: var(--lines-svg-not-flat-multi-indiv-right-indiv-width);
   }
@@ -831,7 +836,7 @@ export const styles = css`
 
   /* A side zone is narrow, so its entries always stack one per row. Both classes
      are needed to outrank the general breakdown rule further down, which would
-     otherwise force its 290px minimum into a much narrower column. */
+     otherwise force its 330px minimum into a much narrower column. */
   .pfcp-breakdown.pfcp-zone-left .pfcp-subs-items,
   .pfcp-breakdown.pfcp-zone-right .pfcp-subs-items {
     grid-template-columns: minmax(0, 1fr);
@@ -969,7 +974,7 @@ export const styles = css`
      side. */
   .pfcp-breakdown .pfcp-subs-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
     gap: 4px 16px;
   }
 
@@ -1002,7 +1007,8 @@ export const styles = css`
 
   .pfcp-sub-name {
     flex: 1 1 auto;
-    min-width: 0;
+    /* Never let the value columns squeeze the name down to a single letter. */
+    min-width: 7ch;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1028,13 +1034,13 @@ export const styles = css`
     display: inline-flex;
     align-items: baseline;
     justify-content: flex-end;
-    min-width: 10ch;
+    min-width: 9ch;
     white-space: nowrap;
   }
 
   .pfcp-sub-power {
     display: inline-block;
-    min-width: 9ch;
+    min-width: 8ch;
     text-align: right;
     white-space: nowrap;
   }

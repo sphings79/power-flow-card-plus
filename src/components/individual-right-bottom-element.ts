@@ -68,7 +68,7 @@ export const individualRightBottomElement = (
     <span class="label">${individualObj.name}</span>
     ${showLine(config, individualObj.state || 0) && !config.entities.home?.hide
       ? html`
-          <div class="right-individual-flow-container">
+          <div class="right-individual-flow-container bottom">
             <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" class="right-individual-flow">
               <path
                 id="individual-bottom-right-home"
