@@ -51,6 +51,18 @@ interface mainConfigOptions {
    * - anything else: no circles; they are listed in that zone around the diagram
    */
   individual_position?: "grid" | "top" | "bottom" | "left" | "right";
+  /**
+   * Keep the width of a side zone free even while it is empty, so the diagram does
+   * not jump sideways when devices appear. Only has an effect when something is
+   * configured to sit left or right of the diagram, and only on wide cards: on a
+   * narrow card the zone drops below the diagram anyway.
+   */
+  reserve_side_width?: boolean;
+  /**
+   * Maximum width of the whole card content in pixels, centred in the card.
+   * `0` or unset lets the content use the full card width.
+   */
+  max_width?: number;
   /** Where the list of individual PV sources goes. Defaults to `top`. */
   solar_position?: "top" | "bottom" | "left" | "right";
   /** Where the list of individual batteries goes. Defaults to `bottom`. */

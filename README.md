@@ -319,6 +319,18 @@ Side zones stack one entry per row; top and bottom fit two per row where there i
 width for it. `individual_position: grid` is the only value that keeps the
 devices as circles in the diagram — every other value lists them instead.
 
+### Width (`reserve_side_width`, `max_width`)
+
+```yaml
+reserve_side_width: true   # keep the side lists' space free while they are empty
+max_width: 700             # px, 0 or unset = full card width
+```
+
+`reserve_side_width` stops the diagram from jumping sideways when devices appear
+in a list left or right of it. It only applies on wide cards; on a narrow card
+the lists sit below the diagram and no space is held back. `max_width` caps the
+whole card content and centres it.
+
 ### PV sources coloured by output (`color_solar_by_output`)
 
 ```yaml

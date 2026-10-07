@@ -59,6 +59,8 @@ export const cardConfigStruct = assign(
     // Accepts the legacy boolean as well as the sort-mode strings.
     sort_individual_devices: optional(union([boolean(), string()])),
     individual_position: optional(string()),
+    reserve_side_width: optional(boolean()),
+    max_width: optional(number()),
     solar_position: optional(string()),
     battery_position: optional(string()),
     charger_position: optional(string()),
@@ -299,6 +301,16 @@ export const advancedOptionsSchema = memoizeOne((localize, displayZeroLinesMode:
             mode: "dropdown",
           },
         },
+      },
+      {
+        name: "reserve_side_width",
+        label: "Reserve the width of the side lists (wide cards only)",
+        selector: { boolean: {} },
+      },
+      {
+        name: "max_width",
+        label: "Maximum width in px (0 = full card width)",
+        selector: { number: { mode: "slider", min: 0, max: 1200, step: 10, unit_of_measurement: "px" } },
       },
       {
         name: "color_individual_by_usage",

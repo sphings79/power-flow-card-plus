@@ -728,6 +728,17 @@ export const styles = css`
     max-width: 470px;
   }
 
+  /* Placeholder that only holds the space of an empty side zone. */
+  .pfcp-zone-reserved {
+    visibility: hidden;
+  }
+
+  /* After has-side-zone, which lifts the cap, so the user's limit wins. */
+  .card-content.has-side-zone.has-max-width,
+  .card-content.has-max-width {
+    max-width: var(--pfcp-max-width);
+  }
+
   .pfcp-zone-left .pfcp-subs,
   .pfcp-zone-right .pfcp-subs {
     min-width: 0;
@@ -749,6 +760,10 @@ export const styles = css`
     .card-content.has-side-zone .pfcp-flow {
       flex: 1 1 100%;
       margin: 0 auto;
+    }
+    /* No space is held back on a narrow card: the lists sit below the diagram. */
+    .pfcp-zone-reserved {
+      display: none;
     }
   }
 

@@ -280,6 +280,15 @@ individual_position: right # grid (Standard, Kreise) | top | bottom | left | rig
 
 Seitliche Zonen stapeln einen Eintrag pro Zeile; oben und unten passen zwei pro Zeile, wo die Breite reicht. `individual_position: grid` ist der einzige Wert, der die Geräte als Kreise im Diagramm belässt — jeder andere Wert stellt sie als Liste dar.
 
+### Breite (`reserve_side_width`, `max_width`)
+
+```yaml
+reserve_side_width: true   # Platz der seitlichen Listen freihalten, solange sie leer sind
+max_width: 700             # px, 0 oder weglassen = volle Kartenbreite
+```
+
+`reserve_side_width` verhindert, dass das Diagramm zur Seite springt, wenn in einer Liste links oder rechts davon Geräte auftauchen. Wirkt nur bei breiten Karten; auf schmalen Karten stehen die Listen unter dem Diagramm und es wird kein Platz zurückgehalten. `max_width` begrenzt den gesamten Karteninhalt und zentriert ihn.
+
 ### PV-Quellen nach Ertrag einfärben (`color_solar_by_output`)
 
 ```yaml

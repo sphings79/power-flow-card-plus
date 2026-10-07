@@ -512,9 +512,26 @@ export class PowerFlowCardPlus extends LitElement {
     // usual width cap.
     const hasSideZone = groups.some((g) => (g.where === "left" || g.where === "right") && g.items.length);
 
+    // With `reserve_side_width` the side zones keep their space while empty. The
+    // configured positions decide, not the current items, so nothing moves when
+    // devices appear later.
+    const configuredPositions: string[] = [
+      this._config.solar_position ?? "top",
+      this._config.battery_position ?? "bottom",
+      this._config.charger_position ?? "bottom",
+      this._config.individual_position ?? "grid",
+    ];
+    const reserveSide = (where: "left" | "right") => !!this._config.reserve_side_width && configuredPositions.includes(where);
+    const reserveAny = reserveSide("left") || reserveSide("right");
+    const maxWidth = Number(this._config.max_width) > 0 ? Number(this._config.max_width) : 0;
+
     const zone = (where: "top" | "bottom" | "left" | "right") => {
       const inZone = groups.filter((g) => g.where === where && g.items.length);
-      if (!inZone.length) return nothing;
+      if (!inZone.length) {
+        return (where === "left" || where === "right") && reserveSide(where)
+          ? html`<div class="pfcp-breakdown pfcp-zone-${where} pfcp-zone-reserved"></div>`
+          : nothing;
+      }
       return html`<div class="pfcp-breakdown pfcp-zone-${where}">
         ${inZone.map((g) => subsElement(this, this._config, { kind: g.kind, title: g.title, items: g.items, showSoc: g.showSoc }))}
       </div>`;
@@ -527,9 +544,9 @@ export class PowerFlowCardPlus extends LitElement {
         style=${this._config.style_ha_card ? this._config.style_ha_card : ""}
       >
         <div
-          class="card-content ${this._config.full_size ? "full-size" : ""} ${this._config.no_labels ? "no-labels" : ""} ${this._config.appearance === "mushroom" ? "appearance-mushroom" : ""} ${hasSideZone ? "has-side-zone" : ""}"
+          class="card-content ${this._config.full_size ? "full-size" : ""} ${this._config.no_labels ? "no-labels" : ""} ${this._config.appearance === "mushroom" ? "appearance-mushroom" : ""} ${hasSideZone || reserveAny ? "has-side-zone" : ""} ${maxWidth ? "has-max-width" : ""}"
           id="power-flow-card-plus"
-          style=${this._config.style_card_content ? this._config.style_card_content : ""}
+          style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${this._config.style_card_content ?? ""}"
         >
           ${zone("top")}
           <!--
