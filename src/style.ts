@@ -916,9 +916,11 @@ export const styles = css`
     border-top: 1px solid var(--divider-color, rgba(127, 127, 127, 0.2));
   }
 
+  /* A list needs room for its name and the value columns. Narrower than that two
+     lists no longer sit side by side but stack, instead of overlapping. */
   .pfcp-subs {
-    flex: 1 1 160px;
-    min-width: 150px;
+    flex: 1 1 280px;
+    min-width: min(280px, 100%);
     --pfcp-sub-color: var(--primary-text-color);
   }
 
