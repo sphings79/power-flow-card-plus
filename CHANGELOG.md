@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For releases before 1.0.0, see the
 [upstream changelog](https://github.com/flixlix/flixlix-cards/blob/main/packages/flixlix-cards/power-flow-card-plus/CHANGELOG.md).
 
+## [1.8.0] - 2026-10-07
+
+### Added
+
+- `appearance: bubble`, a third look after [Bubble Card](https://github.com/Clooos/Bubble-Card): soft bubbles with a thin outline and shadow, pill-shaped list entries, raised pill buttons and a rounded card. It reads the `--bubble-*` theme variables and falls back to the Home Assistant theme without them.
+- `energy_period_picker`: a day / week / month / year bar with previous / next arrows and a "Today" button, like the Home Assistant energy dashboard, shown next to the W / kWh switch in kWh mode. Its space stays reserved in W mode so the diagram does not jump. The first weekday follows the user's Home Assistant profile.
+- `circle_tint` (card-wide, and per node), the strength of the coloured circle background in percent, for `mushroom` and `bubble`.
+- `circle_outline`, an outline around the circles in pixels, in the node's colour, for `mushroom` and `bubble`. `0` removes any outline.
+- `reserve_side_width`: keeps the width of a side list free while it is empty, so the diagram does not shift when devices appear. Wide cards only.
+- `max_width`: caps the width of the card content in pixels and centres it.
+- Editor fields for all of the above, and the new labels in every language file.
+
+### Fixed
+
+- The flow diagram now uses the full card width instead of shrinking to its content and squeezing the circles to the left.
+
+### Changed
+
+- `style.ts` and `power-flow-card-plus.ts` are formatted with Prettier; the card's class list is built from an array instead of one long attribute.
+
 ## [1.7.3] - 2026-09-19
 
 No functional change to the card.
