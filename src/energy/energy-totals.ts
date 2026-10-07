@@ -2,16 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 
 export type EnergyPeriod = "today" | "yesterday" | "week" | "month" | "year" | "last_7_days" | "last_30_days" | "last_365_days";
 
-export const ENERGY_PERIODS: EnergyPeriod[] = [
-  "today",
-  "yesterday",
-  "week",
-  "month",
-  "year",
-  "last_7_days",
-  "last_30_days",
-  "last_365_days",
-];
+export const ENERGY_PERIODS: EnergyPeriod[] = ["today", "yesterday", "week", "month", "year", "last_7_days", "last_30_days", "last_365_days"];
 
 const startOfDay = (d: Date): Date => new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
@@ -57,6 +48,49 @@ export const periodRange = (period: EnergyPeriod, now: Date): { start: Date; end
   }
 };
 
+export type PickerUnit = "day" | "week" | "month" | "year";
+
+export const PICKER_UNITS: PickerUnit[] = ["day", "week", "month", "year"];
+
+/**
+ * Range of one calendar unit, `offset` units away from the current one (0 is the
+ * current unit, -1 the one before). The current unit ends now, earlier ones at
+ * the start of the following unit.
+ *
+ * `weekStart` uses `getDay()` numbering (0 = Sunday, 1 = Monday).
+ */
+export const pickerRange = (unit: PickerUnit, offset: number, now: Date, weekStart = 1): { start: Date; end: Date } => {
+  const today = startOfDay(now);
+  let start: Date;
+  let next: Date;
+
+  switch (unit) {
+    case "week": {
+      start = new Date(today);
+      start.setDate(start.getDate() - ((start.getDay() - weekStart + 7) % 7) + offset * 7);
+      next = new Date(start);
+      next.setDate(next.getDate() + 7);
+      break;
+    }
+    case "month":
+      start = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      next = new Date(start.getFullYear(), start.getMonth() + 1, 1);
+      break;
+    case "year":
+      start = new Date(now.getFullYear() + offset, 0, 1);
+      next = new Date(start.getFullYear() + 1, 0, 1);
+      break;
+    case "day":
+    default:
+      start = new Date(today);
+      start.setDate(start.getDate() + offset);
+      next = new Date(start);
+      next.setDate(next.getDate() + 1);
+  }
+
+  return { start, end: offset === 0 ? now : next };
+};
+
 interface StatisticPoint {
   start?: number | string;
   change?: number | null;
@@ -74,13 +108,13 @@ interface StatisticPoint {
 export const fetchEnergyTotals = async (
   hass: HomeAssistant,
   statisticIds: string[],
-  period: EnergyPeriod,
+  period: EnergyPeriod | { start: Date; end: Date },
   now: Date = new Date()
 ): Promise<Record<string, number>> => {
   const ids = Array.from(new Set(statisticIds.filter((id) => typeof id === "string" && id.length > 0)));
   if (!ids.length) return {};
 
-  const { start, end } = periodRange(period, now);
+  const { start, end } = typeof period === "string" ? periodRange(period, now) : period;
 
   const response = (await (hass as any).callWS({
     type: "recorder/statistics_during_period",

@@ -257,6 +257,7 @@ type: custom:power-flow-card-plus-mushroom
 energy_period: today   # yesterday | week | month | year | last_7_days | last_30_days | last_365_days
 energy_toggle: true    # show the W / kWh switch (default: true once energy is configured)
 energy_default: false  # start in kWh mode
+energy_period_picker: false  # day / week / month / year bar with arrows, in kWh mode (default: off)
 entities:
   grid:
     entity: sensor.grid_power
@@ -277,6 +278,12 @@ entities:
     - entity: sensor.washing_machine_power
       energy_entity: sensor.washing_machine_energy
 ```
+
+With `energy_period_picker: true` the card shows a day / week / month / year bar
+with previous / next arrows and a "Today" button next to the W / kWh switch, like
+the Home Assistant energy dashboard. The bar appears in kWh mode only (its space
+stays reserved in W mode, so the diagram does not jump), starts on `energy_period`
+and follows the first weekday of your Home Assistant profile.
 
 **Point these at cumulative kWh sensors**, not at daily ones. The card asks Home
 Assistant's statistics for the difference over the chosen period, so one lifetime

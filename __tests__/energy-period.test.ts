@@ -1,6 +1,6 @@
 import { describe, expect, it } from "@jest/globals";
 
-import { periodRange } from "../src/energy/energy-totals";
+import { periodRange, pickerRange } from "../src/energy/energy-totals";
 
 // Wednesday, 18 June 2025, 14:30 local time.
 const NOW = new Date(2025, 5, 18, 14, 30, 0);
@@ -167,5 +167,38 @@ describe("productionColor at rest", () => {
 
   it("switches to the ramp as soon as anything is produced", () => {
     expect(productionColor(1, 5000)).toMatch(/^rgb\(/);
+  });
+});
+
+describe("pickerRange", () => {
+  const ymd = (d: Date) => iso(d);
+
+  it("the current unit ends now", () => {
+    expect(pickerRange("day", 0, NOW).end).toEqual(NOW);
+    expect(ymd(pickerRange("week", 0, NOW).start)).toBe("2025-06-16");
+  });
+
+  it("steps back a day, a week, a month and a year", () => {
+    expect(ymd(pickerRange("day", -1, NOW).start)).toBe("2025-06-17");
+    expect(ymd(pickerRange("week", -1, NOW).start)).toBe("2025-06-09");
+    expect(ymd(pickerRange("month", -1, NOW).start)).toBe("2025-05-01");
+    expect(ymd(pickerRange("year", -1, NOW).start)).toBe("2024-01-01");
+  });
+
+  it("an earlier unit ends where the next one starts", () => {
+    expect(ymd(pickerRange("day", -1, NOW).end)).toBe("2025-06-18");
+    expect(ymd(pickerRange("week", -1, NOW).end)).toBe("2025-06-16");
+    expect(ymd(pickerRange("month", -1, NOW).end)).toBe("2025-06-01");
+    expect(ymd(pickerRange("year", -1, NOW).end)).toBe("2025-01-01");
+  });
+
+  it("crosses year boundaries", () => {
+    const jan = new Date(2025, 0, 10, 12);
+    expect(ymd(pickerRange("month", -1, jan).start)).toBe("2024-12-01");
+    expect(ymd(pickerRange("month", -1, jan).end)).toBe("2025-01-01");
+  });
+
+  it("honours a Sunday week start", () => {
+    expect(ymd(pickerRange("week", 0, NOW, 0).start)).toBe("2025-06-15");
   });
 });

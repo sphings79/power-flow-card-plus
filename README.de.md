@@ -231,6 +231,7 @@ type: custom:power-flow-card-plus-mushroom
 energy_period: today   # yesterday | week | month | year | last_7_days | last_30_days | last_365_days
 energy_toggle: true    # W/kWh-Schalter anzeigen (Standard: true, sobald Energie konfiguriert ist)
 energy_default: false  # im kWh-Modus starten
+energy_period_picker: false  # Leiste Tag / Woche / Monat / Jahr mit Pfeilen im kWh-Modus (Standard: aus)
 entities:
   grid:
     entity: sensor.grid_power
@@ -251,6 +252,8 @@ entities:
     - entity: sensor.washing_machine_power
       energy_entity: sensor.washing_machine_energy
 ```
+
+Mit `energy_period_picker: true` zeigt die Karte neben dem W/kWh-Schalter eine Leiste Tag / Woche / Monat / Jahr mit Pfeilen und einem „Heute“-Knopf, wie im Energie-Dashboard von Home Assistant. Die Leiste erscheint nur im kWh-Modus (ihr Platz bleibt im W-Modus reserviert, damit das Diagramm nicht springt), startet mit `energy_period` und folgt dem ersten Wochentag aus deinem HA-Profil.
 
 **Hier gehören kumulative kWh-Sensoren hin**, keine Tageswerte. Die Karte fragt die Statistik von Home Assistant nach der Differenz über den gewählten Zeitraum — ein einziger Gesamtzähler bedient damit jeden Zeitraum. Entspricht ein Sensor bereits exakt dem gewünschten Zeitraum, setzt man daneben `energy_from_state: true`, und die Karte liest seinen Zustand unverändert.
 

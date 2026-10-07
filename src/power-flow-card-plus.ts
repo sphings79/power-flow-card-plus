@@ -52,7 +52,7 @@ import { coerceNumber } from "@/utils/utils";
 import { checkShouldShowDots } from "@/utils/check-should-show-dots";
 import { IndividualSortMode, sortIndividualObjects } from "@/utils/sort-individual-objects";
 import { productionColor, socColor, usageColor } from "@/utils/usage-color";
-import { EnergyPeriod, fetchEnergyTotals } from "@/energy/energy-totals";
+import { EnergyPeriod, PickerUnit, fetchEnergyTotals, pickerRange, periodRange } from "@/energy/energy-totals";
 import { logError } from "@/logging";
 import localize from "@/localize/localize";
 
@@ -77,6 +77,8 @@ export class PowerFlowCardPlus extends LitElement {
   @state() private _energyTotals: Record<string, number> = {};
   /** True while the card shows energy instead of power. */
   @state() private _energyMode = false;
+  /** Period chosen with the picker; null until the user touches it. */
+  @state() private _pick: { unit: PickerUnit; offset: number } | null = null;
   private _energyRequestKey = "";
   private _energyTimer?: number;
   private readonly wideEnoughForFourIndividuals = 359;
@@ -125,6 +127,7 @@ export class PowerFlowCardPlus extends LitElement {
       throw new Error("You are using an outdated configuration. Please update your configuration to the latest version.");
     }
     config = this._normalizeMultiEntityConfig(config);
+    this._pick = null;
     if (config.energy_default === true) this._energyMode = true;
     if (!config.entities || (!config.entities?.battery?.entity && !config.entities?.grid?.entity && !config.entities?.solar?.entity)) {
       throw new Error("At least one entity for battery, grid or solar must be defined");
@@ -218,6 +221,67 @@ export class PowerFlowCardPlus extends LitElement {
     return this._config?.energy_period ?? "today";
   }
 
+  /** The picker's starting point, derived from `energy_period`. */
+  private get _pickStart(): { unit: PickerUnit; offset: number } {
+    switch (this._energyPeriod) {
+      case "yesterday":
+        return { unit: "day", offset: -1 };
+      case "week":
+      case "month":
+      case "year":
+        return { unit: this._energyPeriod, offset: 0 };
+      default:
+        return { unit: "day", offset: 0 };
+    }
+  }
+
+  /** Unit and offset currently shown by the picker. */
+  public get pickerState(): { unit: PickerUnit; offset: number } {
+    return this._pick ?? this._pickStart;
+  }
+
+  /** First day of the week as `getDay()` numbering, following the user's HA profile. */
+  private get _weekStart(): number {
+    const names = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+    const setting = (this.hass?.locale as any)?.first_weekday as string | undefined;
+    const named = setting ? names.indexOf(setting) : -1;
+    if (named >= 0) return named;
+    try {
+      const lang = this.hass?.locale?.language ?? this.hass?.language ?? "en";
+      const first = (new Intl.Locale(lang) as any).weekInfo?.firstDay ?? (new Intl.Locale(lang) as any).getWeekInfo?.().firstDay;
+      if (typeof first === "number") return first % 7;
+    } catch {
+      /* fall through to Monday */
+    }
+    return 1;
+  }
+
+  /** Range the totals are loaded for: the picker's choice, or the configured period. */
+  public get energyRange(): { start: Date; end: Date } {
+    const now = new Date();
+    if (this._pick) {
+      const { unit, offset } = this.pickerState;
+      return pickerRange(unit, offset, now, this._weekStart);
+    }
+    return periodRange(this._energyPeriod, now);
+  }
+
+  public setPickerUnit(unit: PickerUnit): void {
+    this._pick = { unit, offset: 0 };
+    this._refreshEnergyTotals();
+  }
+
+  public shiftPicker(delta: number): void {
+    const { unit, offset } = this.pickerState;
+    this._pick = { unit, offset: Math.min(0, offset + delta) };
+    this._refreshEnergyTotals();
+  }
+
+  public resetPicker(): void {
+    this._pick = { unit: this.pickerState.unit, offset: 0 };
+    this._refreshEnergyTotals();
+  }
+
   /**
    * Loads the period totals. Deliberately keyed on period plus entity list so a
    * plain state update does not trigger a fresh statistics query on every tick.
@@ -227,12 +291,16 @@ export class PowerFlowCardPlus extends LitElement {
     const ids = this._statisticEnergyIds();
     if (!ids.length) return;
 
-    const key = `${this._energyPeriod}|${ids.join(",")}`;
+    // The picker's choice moves the range without touching the config, and a
+    // range that ends now moves on every call, so key on the choice rather than
+    // on timestamps.
+    const pick = this.pickerState;
+    const key = `${this._energyPeriod}|${this._pick ? `${pick.unit}:${pick.offset}` : ""}|${ids.join(",")}`;
     if (!force && key === this._energyRequestKey) return;
     this._energyRequestKey = key;
 
     try {
-      this._energyTotals = await fetchEnergyTotals(this.hass, ids, this._energyPeriod);
+      this._energyTotals = await fetchEnergyTotals(this.hass, ids, this.energyRange);
     } catch (err) {
       // Clear the key so the next update retries instead of being suppressed by
       // the de-duplication guard.

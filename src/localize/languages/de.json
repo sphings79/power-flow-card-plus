@@ -128,6 +128,13 @@
     "charger_position": "Liste der Ladequellen",
     "discharge_color_max": "Maximale Entladung (W) für volles Rot",
     "color_battery_by_discharge": "Batterien nach Entladung einfärben",
-    "battery_discharge_max": "Entladefarbe: Watt für volles Rot"
+    "battery_discharge_max": "Entladefarbe: Watt für volles Rot",
+    "picker_day": "Tag",
+    "picker_week": "Woche",
+    "picker_month": "Monat",
+    "picker_year": "Jahr",
+    "picker_today": "Heute",
+    "picker_previous": "Vorheriger Zeitraum",
+    "picker_next": "Nächster Zeitraum"
   }
 }

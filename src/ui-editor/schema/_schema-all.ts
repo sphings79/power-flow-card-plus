@@ -73,6 +73,7 @@ export const cardConfigStruct = assign(
     solar_color_max: optional(number()),
     energy_period: optional(string()),
     energy_toggle: optional(boolean()),
+    energy_period_picker: optional(boolean()),
     energy_default: optional(boolean()),
     kwh_threshold: optional(number()),
     mwh_decimals: optional(integer()),
@@ -340,6 +341,11 @@ export const advancedOptionsSchema = memoizeOne((localize, displayZeroLinesMode:
             mode: "dropdown",
           },
         },
+      },
+      {
+        name: "energy_period_picker",
+        label: "Show the day / week / month / year picker in kWh mode",
+        selector: { boolean: {} },
       },
       {
         name: "energy_toggle",

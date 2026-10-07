@@ -122,6 +122,12 @@ interface mainConfigOptions {
    * at least one energy entity is configured.
    */
   energy_toggle?: boolean;
+  /**
+   * Show a day / week / month / year bar with previous / next arrows next to the
+   * Watt / kWh switch, like the Home Assistant energy dashboard. Only visible in
+   * kWh mode; `energy_period` is the period it starts on. Off by default.
+   */
+  energy_period_picker?: boolean;
   /** Start the card in energy mode rather than power mode. */
   energy_default?: boolean;
   /**

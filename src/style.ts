@@ -696,6 +696,77 @@ export const styles = css`
     color: var(--secondary-text-color);
   }
 
+  /* With the period picker the switch is part of a normal row instead of floating
+     in the corner, so the two cannot overlap on a narrow card. */
+  .pfcp-energy-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 12px;
+    margin-bottom: 8px;
+    min-height: 26px;
+  }
+
+  .pfcp-energy-toggle.in-bar {
+    position: static;
+  }
+
+  .pfcp-energy-picker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px 10px;
+    margin-left: auto;
+  }
+
+  .pfcp-energy-picker.hidden {
+    visibility: hidden;
+  }
+
+  .pfcp-picker-units,
+  .pfcp-picker-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pfcp-picker-range {
+    min-width: 6.5em;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .pfcp-picker-arrow {
+    font-size: 14px;
+    padding: 2px 9px;
+  }
+
+  /* Classic look: the four units read as one outlined, segmented control. */
+  .pfcp-picker-units {
+    gap: 0;
+  }
+
+  .pfcp-picker-units .pfcp-energy-option {
+    border-radius: 0;
+    margin-left: -1px;
+  }
+
+  .pfcp-picker-units .pfcp-energy-option:first-child {
+    border-radius: 12px 0 0 12px;
+    margin-left: 0;
+  }
+
+  .pfcp-picker-units .pfcp-energy-option:last-child {
+    border-radius: 0 12px 12px 0;
+  }
+
+  .pfcp-energy-option:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
   /*
    * Diagram plus the optional device rail beside it. Without a rail the layout is
    * a single column and behaves exactly as before.
@@ -1044,6 +1115,31 @@ export const styles = css`
     padding: 6px 10px;
     gap: 10px;
     background: color-mix(in srgb, var(--pfcp-sub-color) 12%, transparent);
+  }
+
+  /* Switch and period picker: filled chips instead of outlines, like the rest. */
+  .card-content.appearance-mushroom .pfcp-energy-option {
+    border: none;
+    border-radius: 14px;
+    padding: 5px 11px;
+    background: color-mix(in srgb, var(--primary-text-color) 8%, transparent);
+  }
+
+  .card-content.appearance-mushroom .pfcp-energy-option.active {
+    background: color-mix(in srgb, var(--primary-color) 22%, transparent);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .card-content.appearance-mushroom .pfcp-picker-units {
+    gap: 4px;
+  }
+
+  .card-content.appearance-mushroom .pfcp-picker-units .pfcp-energy-option,
+  .card-content.appearance-mushroom .pfcp-picker-units .pfcp-energy-option:first-child,
+  .card-content.appearance-mushroom .pfcp-picker-units .pfcp-energy-option:last-child {
+    border-radius: 14px;
+    margin-left: 0;
   }
 
   .card-content.appearance-mushroom .pfcp-sub:hover {

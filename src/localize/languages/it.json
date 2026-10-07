@@ -128,6 +128,13 @@
     "charger_position": "Charging source list",
     "discharge_color_max": "Max discharge (W) for full red",
     "color_battery_by_discharge": "Colour batteries by discharge",
-    "battery_discharge_max": "Discharge colour: watts for full red"
+    "battery_discharge_max": "Discharge colour: watts for full red",
+    "picker_day": "Day",
+    "picker_week": "Week",
+    "picker_month": "Month",
+    "picker_year": "Year",
+    "picker_today": "Today",
+    "picker_previous": "Previous period",
+    "picker_next": "Next period"
   }
 }
