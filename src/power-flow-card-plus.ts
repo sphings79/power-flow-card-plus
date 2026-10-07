@@ -789,7 +789,54 @@ export class PowerFlowCardPlus extends LitElement {
       }
     }
 
+    this._layoutRightIndividualLines();
     this._tryConnectAll();
+  }
+
+  /**
+   * Draws the flow lines of the two right-hand individual devices from the measured
+   * positions of their circles and of the home circle.
+   *
+   * The geometry used to be a fixed 100x100 drawing scaled by percentages of the card,
+   * which only lined up at one card width. Measuring the circles keeps the line
+   * attached to them at any width, with any number of rows above or below.
+   */
+  private _layoutRightIndividualLines(): void {
+    const root = this.shadowRoot;
+    const flow = root?.querySelector(".pfcp-flow") as HTMLElement | null;
+    const home = root?.querySelector(".circle-container.home .circle") as HTMLElement | null;
+    if (!flow || !home) return;
+    const fr = flow.getBoundingClientRect();
+    const hr = home.getBoundingClientRect();
+    if (!fr.width) return;
+
+    const draw = (pos: "top" | "bottom", circleSelector: string, pathSelector: string) => {
+      const path = root?.querySelector(pathSelector) as SVGPathElement | null;
+      const circle = root?.querySelector(circleSelector) as HTMLElement | null;
+      if (!path || !circle) return;
+      const cr = circle.getBoundingClientRect();
+      // Starts at the near edge of the device circle and ends on the right-hand rim of
+      // the home circle, 20 degrees above (top device) or below (bottom device) its
+      // centre line, so the two lines meet it at different points.
+      const sx = cr.left + cr.width / 2 - fr.left;
+      const sy = (pos === "top" ? cr.bottom : cr.top) - fr.top;
+      const radius = hr.width / 2;
+      const angle = (20 * Math.PI) / 180;
+      const ex = hr.left + radius + radius * Math.cos(angle) - fr.left;
+      const ey = hr.top + radius + (pos === "top" ? -1 : 1) * radius * Math.sin(angle) - fr.top;
+      const dx = sx - ex;
+      const dy = Math.abs(ey - sy);
+      if (dx <= 0 || dy <= 0) {
+        path.setAttribute("d", "");
+        return;
+      }
+      const r = Math.min(30, dx, dy);
+      const vertical = pos === "top" ? ey - r : ey + r;
+      path.setAttribute("d", `M${sx},${sy} V${vertical} Q${sx},${ey} ${sx - r},${ey} H${ex}`);
+    };
+
+    draw("top", ".circle-container.individual-right-top .circle", "#individual-top-right-home");
+    draw("bottom", ".circle-container.individual-right-bottom .circle", "#individual-bottom-right-home");
   }
 
   protected willUpdate(changedProps: PropertyValues): void {

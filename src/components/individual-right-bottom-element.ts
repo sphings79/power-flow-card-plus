@@ -68,12 +68,12 @@ export const individualRightBottomElement = (
     <span class="label">${individualObj.name}</span>
     ${showLine(config, individualObj.state || 0) && !config.entities.home?.hide
       ? html`
-          <div class="right-individual-flow-container bottom">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" class="right-individual-flow">
+          <div class="right-individual-flow-container">
+            <svg xmlns="http://www.w3.org/2000/svg" class="right-individual-flow" data-pos="bottom">
               <path
                 id="individual-bottom-right-home"
                 class="${styleLine(individualObj.state || 0, config)}"
-                d="M45,100 v-15 c0,-30 -10,-30 -30,-30 h-20"
+                d=""
                 vector-effect="non-scaling-stroke"
               />
               ${checkShouldShowDots(config) && individualObj.state && individualObj.state >= (individualObj.displayZeroTolerance ?? 0)

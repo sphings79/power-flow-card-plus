@@ -8,7 +8,6 @@ import { showLine } from "@/utils/show-line";
 import { IndividualObject } from "@/states/raw/individual/get-individual-object";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { styleLine } from "@/utils/style-line";
-import { checkHasBottomIndividual } from "@/utils/compute-individual-position";
 import { checkShouldShowDots } from "@/utils/check-should-show-dots";
 
 interface TopIndividual {
@@ -23,7 +22,7 @@ interface TopIndividual {
 export const individualRightTopElement = (
   main: PowerFlowCardPlus,
   config: PowerFlowCardPlusConfig,
-  { individualObj, templatesObj, displayState, newDur, battery, individualObjs }: TopIndividual
+  { individualObj, templatesObj, displayState, newDur }: TopIndividual
 ) => {
   if (!individualObj) return html`<div class="spacer"></div>`;
   const disableEntityClick = config.clickable_entities === false;
@@ -32,8 +31,6 @@ export const individualRightTopElement = (
   if (indexOfIndividual === -1 || indexOfIndividual === undefined) return html`<div class="spacer"></div>`;
 
   const duration = newDur.individual[indexOfIndividual] || 1.66;
-
-  const hasBottomRow = !!battery?.has || checkHasBottomIndividual(individualObjs);
 
   return html`<div class="circle-container individual-top individual-right individual-right-top" style=${circleTintStyle(config?.entities?.individual?.[indexOfIndividual]?.circle_tint)}>
     <span class="label">${individualObj.name}</span>
@@ -74,11 +71,11 @@ export const individualRightTopElement = (
     ${showLine(config, individualObj.state || 0) && !config.entities.home?.hide
       ? html`
           <div class="right-individual-flow-container">
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" class="right-individual-flow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="right-individual-flow" data-pos="top">
               <path
                 id="individual-top-right-home"
                 class="${styleLine(individualObj.state || 0, config)}"
-                d="M${hasBottomRow ? 45 : 47},0 v15 c0,${hasBottomRow ? "30 -10,30 -30,30" : "35 -10,35 -30,35"} h-20"
+                d=""
                 vector-effect="non-scaling-stroke"
               />
               ${checkShouldShowDots(config) && individualObj.state && individualObj.state >= (individualObj.displayZeroTolerance ?? 0)

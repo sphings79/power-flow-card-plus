@@ -275,7 +275,6 @@ export const styles = css`
     height: 110px !important;
   }
 
-  .card-content.no-labels .right-individual-flow-container,
   .card-content.no-labels .lines {
     transform: translateY(20px);
   }
@@ -379,34 +378,19 @@ export const styles = css`
     stroke: var(--individual-right-bottom-color);
   }
 
+  /* The right-hand device lines are drawn over the whole diagram; the card measures
+     the circles and fills in the path (see _layoutRightIndividualLines). */
   .right-individual-flow-container {
     position: absolute;
-    right: calc(var(--size-circle-entity) - 27% * 1.1 + 6px);
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    height: 156px;
-    bottom: 100px;
-    padding: 0 16px 16px;
-    margin-right: -1.2%;
-    box-sizing: border-box;
+    inset: 0;
     pointer-events: none;
   }
-  /* The line of the lower device starts at the bottom edge of its box, so any padding
-     there leaves a gap between the line and the circle. */
-  .right-individual-flow-container.bottom {
-    padding-bottom: 0;
-  }
   .right-individual-flow-container > svg {
-    width: var(--lines-svg-not-flat-multi-indiv-right-indiv-width);
-  }
-
-  .right-individual-flow {
-    height: var(--lines-svg-not-flat-multi-indiv-right-indiv-height);
-    margin-top: 2px;
-    width: var(--lines-svg-not-flat-multi-indiv-width);
-    top: var(--lines-svg-not-flat-line-top);
-    position: relative;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
   }
   .circle-container.low-carbon {
     height: 130px;
@@ -974,7 +958,7 @@ export const styles = css`
      side. */
   .pfcp-breakdown .pfcp-subs-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
     gap: 4px 16px;
   }
 
