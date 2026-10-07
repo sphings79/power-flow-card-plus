@@ -13,9 +13,12 @@
 
 **English** · [Deutsch](README.de.md)
 
-<img src="docs/images/card-preview.svg" alt="The card with three PV sources and two batteries: aggregated solar and battery nodes with animated flows, and a docked breakdown listing every source and battery underneath" width="52%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/mushroom.png">
+  <img src="docs/images/screenshots/en/light/mushroom.png" alt="The card with several PV sources, four batteries and individual devices in the mushroom look: aggregated solar and battery nodes with animated flows, and a docked breakdown listing every source and battery underneath" width="46%">
+</picture>
 
-<sub>Illustration of the card's layout — not a photograph of a running instance.</sub>
+<sub>Screenshot of a running instance in the mushroom look. More on the <a href="docs/screenshots.md">screenshot page</a>.</sub>
 
 </div>
 

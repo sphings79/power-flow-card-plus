@@ -13,9 +13,12 @@
 
 [English](README.md) · **Deutsch**
 
-<img src="docs/images/card-preview.svg" alt="Die Karte mit drei PV-Quellen und zwei Batterien: aggregierte Solar- und Batterie-Knoten mit animierten Flüssen und darunter eine angedockte Aufschlüsselung aller Quellen und Batterien" width="52%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/mushroom.png">
+  <img src="docs/images/screenshots/de/light/mushroom.png" alt="Die Karte mit mehreren PV-Quellen, vier Batterien und Einzelgeräten in der Mushroom-Optik: aggregierte Solar- und Batterie-Knoten mit animierten Flüssen und darunter eine angedockte Aufschlüsselung aller Quellen und Batterien" width="46%">
+</picture>
 
-<sub>Illustration des Kartenlayouts — kein Foto eines laufenden Dashboards.</sub>
+<sub>Screenshot einer laufenden Instanz in der Mushroom-Optik. Mehr auf der <a href="docs/screenshots.de.md">Screenshot-Seite</a>.</sub>
 
 </div>
 

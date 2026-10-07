@@ -12,7 +12,7 @@ adds, without pretending to be a screenshot of anyone's dashboard.
 | --- | --- |
 | `banner.svg` | README header |
 | `social-preview.svg` / `.png` | GitHub social preview (1280×640) |
-| `card-preview.svg` | Headline image — three PV sources, two batteries, docked breakdown |
+| `card-preview.svg` | Schematic of the layout — three PV sources, two batteries, docked breakdown (no longer used in the README, which shows a screenshot at the top) |
 | `demo-grid-only.svg` | Minimal setup: grid only |
 | `demo-solar-and-grid.svg` | Grid + solar |
 | `demo-grid-solar-battery.svg` | Grid + solar + battery |
