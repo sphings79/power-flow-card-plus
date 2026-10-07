@@ -184,6 +184,9 @@ export const allDynamicStyles = (
   );
   main.style.setProperty("--icon-home-color", computeColor(entities.home?.color_icon, homeSources, homeLargestSource));
   main.style.setProperty("--text-home-color", computeColor(entities.home?.color_value, homeSources, homeLargestSource));
+  // The home circle has no colour variable of its own: its ring is drawn from the
+  // flow shares. The filled appearances tint the circle with its largest source.
+  main.style.setProperty("--circle-home-color", computeColor(true, homeSources, homeLargestSource));
 
   // --home-circle-animation
   if (entities.home?.circle_animation === false) main.style.setProperty("--home-circle-animation", "none");

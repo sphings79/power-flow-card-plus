@@ -221,6 +221,20 @@ export const styles = css`
     top: -20px;
     margin-bottom: -20px;
   }
+  /* The flow line of a right-hand device is absolutely positioned and sized in
+     percent of the whole diagram. Inside a positioned circle container it was sized
+     in percent of an 80px box instead, came out zero wide and never showed. So these
+     containers stay unpositioned and only their circle and label keep the stacking
+     order that holds them above the lines. */
+  .circle-container.individual-right {
+    position: static;
+    z-index: auto;
+  }
+  .circle-container.individual-right > .circle,
+  .circle-container.individual-right > .label {
+    position: relative;
+    z-index: 1;
+  }
   .circle-container.battery {
     height: 110px;
     justify-content: flex-end;
@@ -849,12 +863,18 @@ export const styles = css`
     /* Vertically centred on the battery row's circles. */
     bottom: 50px;
     /* From the charger circle's right edge to the battery circle's centre. The
-       battery node is always horizontally centred, hence the 50%. */
+       battery node is horizontally centred in a three-slot row, hence the 50%. */
     left: var(--size-circle-entity);
     width: calc(50% - var(--size-circle-entity));
     height: 20px;
     pointer-events: none;
     z-index: 0;
+  }
+
+  /* Four slots in the row: the battery is the second of four, so its centre sits at
+     one third of the space between the outer circle centres, not at the middle. */
+  .pfcp-charger-lines.four-columns {
+    width: calc((100% - 2.5 * var(--size-circle-entity)) / 3);
   }
 
   .pfcp-charger-lines svg {
@@ -1000,6 +1020,31 @@ export const styles = css`
     color: var(--primary-text-color);
   }
 
+  /* Fixed, right-aligned value columns, so the numbers of different rows sit exactly
+     below each other. Digits are already tabular, but without a minimum width a
+     short value such as 1 W still makes its cell narrower than 1000 W and shifts
+     everything to its left. */
+  .pfcp-sub-energy {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    min-width: 10ch;
+    white-space: nowrap;
+  }
+
+  .pfcp-sub-power {
+    display: inline-block;
+    min-width: 9ch;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .pfcp-sub-soc {
+    display: inline-block;
+    min-width: 5ch;
+    text-align: right;
+  }
+
   /* The state of charge is the headline number of a battery row, so it is the
      largest thing in it rather than the smallest. It borrows the row's accent
      colour, which carries the charge level itself when color_battery_by_soc is
@@ -1060,21 +1105,24 @@ export const styles = css`
     color: var(--secondary-text-color);
   }
 
-  /* Shape colour follows the icon colour of each node, the way Mushroom does it. */
+  /* Shape colour follows the circle colour of each node, the same colour the classic
+     look draws as the ring. It does not follow the icon colour: that one stays the
+     plain text colour unless color_icon is set, which left PV, grid, home and the
+     battery tinted a flat grey. */
   .card-content.appearance-mushroom .solar .circle {
-    --pfcp-shape: var(--icon-solar-color, var(--energy-solar-color, #ff9800));
+    --pfcp-shape: var(--energy-solar-color, #ff9800);
   }
   .card-content.appearance-mushroom .low-carbon .circle {
     --pfcp-shape: var(--icon-non-fossil-color, var(--non-fossil-color, #0f9d58));
   }
   .card-content.appearance-mushroom .grid .circle {
-    --pfcp-shape: var(--icon-grid-color, var(--circle-grid-color, var(--energy-grid-consumption-color, #488fc2)));
+    --pfcp-shape: var(--circle-grid-color, var(--energy-grid-consumption-color, #488fc2));
   }
   .card-content.appearance-mushroom .battery .circle {
-    --pfcp-shape: var(--icon-battery-color, var(--circle-battery-color, var(--energy-battery-in-color, #f06292)));
+    --pfcp-shape: var(--circle-battery-color, var(--energy-battery-in-color, #f06292));
   }
   .card-content.appearance-mushroom .home .circle {
-    --pfcp-shape: var(--icon-home-color, var(--energy-grid-consumption-color, #488fc2));
+    --pfcp-shape: var(--circle-home-color, var(--energy-grid-consumption-color, #488fc2));
   }
   .card-content.appearance-mushroom .individual-top:not(.individual-right) .circle {
     --pfcp-shape: var(--icon-individual-left-top-color, var(--individual-left-top-color, #964cb5));

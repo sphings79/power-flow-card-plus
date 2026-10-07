@@ -4,6 +4,7 @@ import { html, svg, nothing } from "lit";
 import { styleLine } from "@/utils/style-line";
 import { type Flows } from "./index";
 import { checkShouldShowDots } from "@/utils/check-should-show-dots";
+import { checkHasRightIndividual } from "@/utils/compute-individual-position";
 
 const chargerToBatteryDot = (config: PowerFlowCardPlusConfig, charger: Flows["charger"], newDur: Flows["newDur"]) => {
   if (!checkShouldShowDots(config) || !charger?.state?.toBattery) return nothing;
@@ -15,7 +16,7 @@ const chargerToBatteryDot = (config: PowerFlowCardPlusConfig, charger: Flows["ch
     </circle>`;
 };
 
-type FlowChargerToBatteryFlows = Pick<Flows, "battery" | "charger" | "newDur">;
+type FlowChargerToBatteryFlows = Pick<Flows, "battery" | "charger" | "newDur"> & Partial<Pick<Flows, "individual">>;
 
 /**
  * One-way line from the external charging source into the battery.
@@ -26,11 +27,15 @@ type FlowChargerToBatteryFlows = Pick<Flows, "battery" | "charger" | "newDur">;
  * the battery row, so the line gets its own container spanning exactly that row,
  * with `preserveAspectRatio="none"` so the coordinates map straight onto it.
  */
-export const flowChargerToBattery = (config: PowerFlowCardPlusConfig, { battery, charger, newDur }: FlowChargerToBatteryFlows) => {
+export const flowChargerToBattery = (config: PowerFlowCardPlusConfig, { battery, charger, newDur, individual }: FlowChargerToBatteryFlows) => {
   const shouldShow = !!charger?.has && !!battery?.has && showLine(config, charger.state.toBattery || 0);
   if (!shouldShow) return nothing;
 
-  return html`<div class="pfcp-charger-lines">
+  // With a device in the right-hand column the row has four slots instead of three,
+  // and the battery no longer sits in the middle of the card.
+  const fourColumns = checkHasRightIndividual(individual ?? []);
+
+  return html`<div class="pfcp-charger-lines ${fourColumns ? "four-columns" : ""}">
     <svg viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" id="charger-battery-flow">
       <path
         id="charger-battery"

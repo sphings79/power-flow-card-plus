@@ -27,6 +27,6 @@ export const flowElement = (config: PowerFlowCardPlusConfig, { battery, grid, in
   ${flowGridToHome(config, { battery, grid, individual, solar, newDur })}
   ${flowBatteryToHome(config, { battery, grid, individual, newDur })}
   ${flowBatteryToGrid(config, { battery, grid, individual, newDur })}
-  ${flowChargerToBattery(config, { battery, charger, newDur })}
+  ${flowChargerToBattery(config, { battery, charger, newDur, individual })}
 </div>`;
 };
