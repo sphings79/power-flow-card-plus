@@ -28,21 +28,21 @@
 
 ## Screenshots
 
-Aufgenommen aus einer laufenden Home Assistant, im hellen und im dunklen Modus — dein Browser wählt den passenden. Mehr davon, beide Modi nebeneinander, auf der [Screenshot-Seite](docs/screenshots.md).
+Aufgenommen aus einer laufenden Home Assistant, im hellen und im dunklen Modus — dein Browser wählt den passenden. Mehr davon, beide Modi nebeneinander, auf der [Screenshot-Seite](docs/screenshots.de.md).
 
 <table>
 <tr>
 <td align="center" width="33%"><b>classic</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/classic.png">
-  <img src="docs/images/screenshots/light/classic.png" alt="Die Karte in der klassischen Optik" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/classic.png">
+  <img src="docs/images/screenshots/de/light/classic.png" alt="Die Karte in der klassischen Optik" width="100%">
 </picture></td>
 <td align="center" width="33%"><b>mushroom</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/mushroom.png">
-  <img src="docs/images/screenshots/light/mushroom.png" alt="Die Karte mit appearance mushroom" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/mushroom.png">
+  <img src="docs/images/screenshots/de/light/mushroom.png" alt="Die Karte mit appearance mushroom" width="100%">
 </picture></td>
 <td align="center" width="33%"><b>bubble</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/bubble.png">
-  <img src="docs/images/screenshots/light/bubble.png" alt="Die Karte mit appearance bubble" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/bubble.png">
+  <img src="docs/images/screenshots/de/light/bubble.png" alt="Die Karte mit appearance bubble" width="100%">
 </picture></td>
 </tr>
 </table>
@@ -50,20 +50,20 @@ Aufgenommen aus einer laufenden Home Assistant, im hellen und im dunklen Modus �
 <table>
 <tr>
 <td align="center" width="50%"><b>kWh mit Zeitraum-Leiste</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/bubble-kwh-picker.png">
-  <img src="docs/images/screenshots/light/bubble-kwh-picker.png" alt="Die Bubble-Optik im kWh-Modus mit der Leiste für Tag, Woche, Monat und Jahr" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/bubble-kwh-picker.png">
+  <img src="docs/images/screenshots/de/light/bubble-kwh-picker.png" alt="Die Bubble-Optik im kWh-Modus mit der Leiste für Tag, Woche, Monat und Jahr" width="100%">
 </picture></td>
 <td align="center" width="50%"><b>Auf dem Handy</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/mobile-bubble.png">
-  <img src="docs/images/screenshots/light/mobile-bubble.png" alt="Die Bubble-Optik auf dem Handy" width="60%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/mobile-bubble.png">
+  <img src="docs/images/screenshots/de/light/mobile-bubble.png" alt="Die Bubble-Optik auf dem Handy" width="60%">
 </picture></td>
 </tr>
 </table>
 
 <p align="center"><b>Geräte als Liste neben dem Diagramm</b><br>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/wide-bubble-devices-right.png">
-  <img src="docs/images/screenshots/light/wide-bubble-devices-right.png" alt="Eine breite Karte mit den Einzelgeräten als Liste rechts neben dem Diagramm" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/wide-bubble-devices-right.png">
+  <img src="docs/images/screenshots/de/light/wide-bubble-devices-right.png" alt="Eine breite Karte mit den Einzelgeräten als Liste rechts neben dem Diagramm" width="100%">
 </picture></p>
 
 ## Zusätzliche Funktionen

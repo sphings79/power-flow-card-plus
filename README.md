@@ -33,16 +33,16 @@ Taken from a running Home Assistant, in light and dark mode — your browser pic
 <table>
 <tr>
 <td align="center" width="33%"><b>classic</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/classic.png">
-  <img src="docs/images/screenshots/light/classic.png" alt="The card in the classic look" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/classic.png">
+  <img src="docs/images/screenshots/en/light/classic.png" alt="The card in the classic look" width="100%">
 </picture></td>
 <td align="center" width="33%"><b>mushroom</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/mushroom.png">
-  <img src="docs/images/screenshots/light/mushroom.png" alt="The card with appearance mushroom" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/mushroom.png">
+  <img src="docs/images/screenshots/en/light/mushroom.png" alt="The card with appearance mushroom" width="100%">
 </picture></td>
 <td align="center" width="33%"><b>bubble</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/bubble.png">
-  <img src="docs/images/screenshots/light/bubble.png" alt="The card with appearance bubble" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/bubble.png">
+  <img src="docs/images/screenshots/en/light/bubble.png" alt="The card with appearance bubble" width="100%">
 </picture></td>
 </tr>
 </table>
@@ -50,20 +50,20 @@ Taken from a running Home Assistant, in light and dark mode — your browser pic
 <table>
 <tr>
 <td align="center" width="50%"><b>kWh with period picker</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/bubble-kwh-picker.png">
-  <img src="docs/images/screenshots/light/bubble-kwh-picker.png" alt="The bubble look in kWh mode with the day, week, month and year picker" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/bubble-kwh-picker.png">
+  <img src="docs/images/screenshots/en/light/bubble-kwh-picker.png" alt="The bubble look in kWh mode with the day, week, month and year picker" width="100%">
 </picture></td>
 <td align="center" width="50%"><b>On a phone</b><br><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/mobile-bubble.png">
-  <img src="docs/images/screenshots/light/mobile-bubble.png" alt="The bubble look on a phone" width="60%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/mobile-bubble.png">
+  <img src="docs/images/screenshots/en/light/mobile-bubble.png" alt="The bubble look on a phone" width="60%">
 </picture></td>
 </tr>
 </table>
 
 <p align="center"><b>Devices as a list next to the diagram</b><br>
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/dark/wide-bubble-devices-right.png">
-  <img src="docs/images/screenshots/light/wide-bubble-devices-right.png" alt="A wide card with the individual devices as a list to the right of the diagram" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/wide-bubble-devices-right.png">
+  <img src="docs/images/screenshots/en/light/wide-bubble-devices-right.png" alt="A wide card with the individual devices as a list to the right of the diagram" width="100%">
 </picture></p>
 
 ## Additional Features / Enhancements

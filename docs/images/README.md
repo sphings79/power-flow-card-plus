@@ -1,6 +1,6 @@
 # Illustrations and screenshots
 
-The `screenshots/` folder holds real captures from a running Home Assistant, one set in `light/` and one in `dark/`. They are used by the README (via `<picture>`, so the browser picks the matching mode) and by [`../screenshots.md`](../screenshots.md).
+The `screenshots/` folder holds real captures from a running Home Assistant, in English (`en/`) and German (`de/`), each in `light/` and `dark/`. The README of the matching language uses them via `<picture>`, so the browser picks the mode; the gallery pages [`../screenshots.md`](../screenshots.md) and [`../screenshots.de.md`](../screenshots.de.md) show all of them.
 
 The SVG files below are different:
 
