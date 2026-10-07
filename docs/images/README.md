@@ -1,6 +1,6 @@
 # Illustrations and screenshots
 
-The `screenshots/` folder holds real captures from a running Home Assistant, in English (`en/`) and German (`de/`), each in `light/` and `dark/`. The README of the matching language uses them via `<picture>`, so the browser picks the mode; the gallery pages [`../screenshots.md`](../screenshots.md) and [`../screenshots.de.md`](../screenshots.de.md) show all of them.
+The `screenshots/` folder holds real captures from a running Home Assistant, in English (`en/`) and German (`de/`), each in `light/` and `dark/`. `overview.gif` in each folder is a slideshow built from the single captures (looks classic, mushroom, bubble, then the kWh view); it is not a screen recording. The README of the matching language uses them via `<picture>`, so the browser picks the mode; the gallery pages [`../screenshots.md`](../screenshots.md) and [`../screenshots.de.md`](../screenshots.de.md) show all of them.
 
 The SVG files below are different:
 

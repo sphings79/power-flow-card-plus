@@ -4,6 +4,12 @@ Real captures from a running Home Assistant, every one in light and dark mode. T
 
 Back to the [README](../README.md) · [Deutsch](screenshots.de.md)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="images/screenshots/en/dark/overview.gif">
+  <img src="images/screenshots/en/light/overview.gif" alt="Overview" width="40%">
+</picture>
+
+
 ## Appearances
 
 ### `appearance: classic`

@@ -14,11 +14,11 @@
 [English](README.md) · **Deutsch**
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/mushroom.png">
-  <img src="docs/images/screenshots/de/light/mushroom.png" alt="Die Karte mit mehreren PV-Quellen, vier Batterien und Einzelgeräten in der Mushroom-Optik: aggregierte Solar- und Batterie-Knoten mit animierten Flüssen und darunter eine angedockte Aufschlüsselung aller Quellen und Batterien" width="46%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/de/dark/overview.gif">
+  <img src="docs/images/screenshots/de/light/overview.gif" alt="Die Karte wechselt durch ihre drei Optiken classic, mushroom und bubble und zeigt dann die kWh-Ansicht mit der Zeitraum-Leiste" width="46%">
 </picture>
 
-<sub>Screenshot einer laufenden Instanz in der Mushroom-Optik. Mehr auf der <a href="docs/screenshots.de.md">Screenshot-Seite</a>.</sub>
+<sub>Die drei Optiken (classic, mushroom, bubble) und die kWh-Ansicht mit der Zeitraum-Leiste, aus einer laufenden Instanz. Mehr auf der <a href="docs/screenshots.de.md">Screenshot-Seite</a>.</sub>
 
 </div>
 

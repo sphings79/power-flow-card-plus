@@ -14,11 +14,11 @@
 **English** · [Deutsch](README.de.md)
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/mushroom.png">
-  <img src="docs/images/screenshots/en/light/mushroom.png" alt="The card with several PV sources, four batteries and individual devices in the mushroom look: aggregated solar and battery nodes with animated flows, and a docked breakdown listing every source and battery underneath" width="46%">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/screenshots/en/dark/overview.gif">
+  <img src="docs/images/screenshots/en/light/overview.gif" alt="The card cycling through its three looks, classic, mushroom and bubble, and then the kWh view with the period picker" width="46%">
 </picture>
 
-<sub>Screenshot of a running instance in the mushroom look. More on the <a href="docs/screenshots.md">screenshot page</a>.</sub>
+<sub>The three looks (classic, mushroom, bubble) and the kWh view with the period picker, from a running instance. More on the <a href="docs/screenshots.md">screenshot page</a>.</sub>
 
 </div>
 
