@@ -259,16 +259,16 @@ export class PowerFlowCardPlus extends LitElement {
     if (!e) return false;
     return Boolean(
       e.grid?.energy_consumed_entity ||
-        e.grid?.energy_returned_entity ||
-        e.solar?.energy_entity ||
-        e.home?.energy_entity ||
-        e.charger?.energy_entity ||
-        e.battery?.energy_charged_entity ||
-        e.battery?.energy_discharged_entity ||
-        e.battery?.batteries?.some((b) => b.energy_charged_entity || b.energy_discharged_entity) ||
-        e.solar?.sources?.some((s) => s.energy_entity) ||
-        e.charger?.sources?.some((s) => s.energy_entity) ||
-        e.individual?.some((i) => i.energy_entity)
+      e.grid?.energy_returned_entity ||
+      e.solar?.energy_entity ||
+      e.home?.energy_entity ||
+      e.charger?.energy_entity ||
+      e.battery?.energy_charged_entity ||
+      e.battery?.energy_discharged_entity ||
+      e.battery?.batteries?.some((b) => b.energy_charged_entity || b.energy_discharged_entity) ||
+      e.solar?.sources?.some((s) => s.energy_entity) ||
+      e.charger?.sources?.some((s) => s.energy_entity) ||
+      e.individual?.some((i) => i.energy_entity)
     );
   }
 
@@ -537,6 +537,17 @@ export class PowerFlowCardPlus extends LitElement {
       </div>`;
     };
 
+    const cardContentClasses = [
+      "card-content",
+      this._config.full_size && "full-size",
+      this._config.no_labels && "no-labels",
+      this._config.appearance === "mushroom" && "appearance-mushroom",
+      (hasSideZone || reserveAny) && "has-side-zone",
+      maxWidth && "has-max-width",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return html`
       <ha-card
         .header=${this._config.title}
@@ -544,7 +555,7 @@ export class PowerFlowCardPlus extends LitElement {
         style=${this._config.style_ha_card ? this._config.style_ha_card : ""}
       >
         <div
-          class="card-content ${this._config.full_size ? "full-size" : ""} ${this._config.no_labels ? "no-labels" : ""} ${this._config.appearance === "mushroom" ? "appearance-mushroom" : ""} ${hasSideZone || reserveAny ? "has-side-zone" : ""} ${maxWidth ? "has-max-width" : ""}"
+          class=${cardContentClasses}
           id="power-flow-card-plus"
           style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${this._config.style_card_content ?? ""}"
         >
@@ -556,106 +567,106 @@ export class PowerFlowCardPlus extends LitElement {
             push every line downwards by its own height.
           -->
           <div class="pfcp-layout">
-          ${zone("left")}
-          <div class="pfcp-flow">
-          ${energyToggleElement(this, this._config, this.hasEnergyConfigured)}
-          ${solar.has || individualObjs?.some((individual) => individual?.has) || nonFossil.hasPercentage
-            ? html`<div class="row">
-                ${nonFossilElement(this, this._config, {
-                  entities,
-                  grid,
-                  newDur,
-                  nonFossil,
-                  templatesObj,
-                })}
-                ${solar.has
-                  ? solarElement(this, this._config, {
+            ${zone("left")}
+            <div class="pfcp-flow">
+              ${energyToggleElement(this, this._config, this.hasEnergyConfigured)}
+              ${solar.has || individualObjs?.some((individual) => individual?.has) || nonFossil.hasPercentage
+                ? html`<div class="row">
+                    ${nonFossilElement(this, this._config, {
                       entities,
-                      solar,
-                      templatesObj,
-                    })
-                  : individualObjs?.some((individual) => individual?.has)
-                    ? html`<div class="spacer"></div>`
-                    : nothing}
-                ${individualFieldLeftTop
-                  ? individualLeftTopElement(this, this._config, {
-                      individualObj: individualFieldLeftTop,
-                      displayState: getIndividualDisplayState(individualFieldLeftTop),
+                      grid,
                       newDur,
+                      nonFossil,
+                      templatesObj,
+                    })}
+                    ${solar.has
+                      ? solarElement(this, this._config, {
+                          entities,
+                          solar,
+                          templatesObj,
+                        })
+                      : individualObjs?.some((individual) => individual?.has)
+                        ? html`<div class="spacer"></div>`
+                        : nothing}
+                    ${individualFieldLeftTop
+                      ? individualLeftTopElement(this, this._config, {
+                          individualObj: individualFieldLeftTop,
+                          displayState: getIndividualDisplayState(individualFieldLeftTop),
+                          newDur,
+                          templatesObj,
+                        })
+                      : html`<div class="spacer"></div>`}
+                    ${checkHasRightIndividual(individualObjs)
+                      ? individualRightTopElement(this, this._config, {
+                          displayState: getIndividualDisplayState(individualFieldRightTop),
+                          individualObj: individualFieldRightTop,
+                          newDur,
+                          templatesObj,
+                          battery,
+                          individualObjs,
+                        })
+                      : nothing}
+                  </div>`
+                : nothing}
+              <div class="row">
+                ${grid.has
+                  ? gridElement(this, this._config, {
+                      entities,
+                      grid,
                       templatesObj,
                     })
                   : html`<div class="spacer"></div>`}
-                ${checkHasRightIndividual(individualObjs)
-                  ? individualRightTopElement(this, this._config, {
-                      displayState: getIndividualDisplayState(individualFieldRightTop),
-                      individualObj: individualFieldRightTop,
+                <div class="spacer"></div>
+                ${!entities.home?.hide
+                  ? homeElement(this, this._config, {
+                      circleCircumference,
+                      entities,
+                      grid,
+                      home,
+                      homeBatteryCircumference,
+                      homeGridCircumference,
+                      homeNonFossilCircumference,
+                      homeSolarCircumference,
                       newDur,
                       templatesObj,
-                      battery,
-                      individualObjs,
-                    })
-                  : nothing}
-              </div>`
-            : nothing}
-          <div class="row">
-            ${grid.has
-              ? gridElement(this, this._config, {
-                  entities,
-                  grid,
-                  templatesObj,
-                })
-              : html`<div class="spacer"></div>`}
-            <div class="spacer"></div>
-            ${!entities.home?.hide
-              ? homeElement(this, this._config, {
-                  circleCircumference,
-                  entities,
-                  grid,
-                  home,
-                  homeBatteryCircumference,
-                  homeGridCircumference,
-                  homeNonFossilCircumference,
-                  homeSolarCircumference,
-                  newDur,
-                  templatesObj,
-                  homeUsageToDisplay,
-                  individual: individualObjs,
-                })
-              : html`<div class="spacer"></div>`}
-            ${checkHasRightIndividual(individualObjs) ? html` <div class="spacer"></div>` : nothing}
-          </div>
-          ${battery.has || charger.has || checkHasBottomIndividual(individualObjs)
-            ? html`<div class="row">
-                ${charger.has ? chargerElement(this, this._config, { charger, entities, templatesObj }) : html`<div class="spacer"></div>`}
-                ${battery.has ? batteryElement(this, this._config, { battery, entities }) : html`<div class="spacer"></div>`}
-                ${individualFieldLeftBottom
-                  ? individualLeftBottomElement(this, this._config, {
-                      displayState: getIndividualDisplayState(individualFieldLeftBottom),
-                      individualObj: individualFieldLeftBottom,
-                      newDur,
-                      templatesObj,
+                      homeUsageToDisplay,
+                      individual: individualObjs,
                     })
                   : html`<div class="spacer"></div>`}
-                ${checkHasRightIndividual(individualObjs)
-                  ? individualRightBottomElement(this, this._config, {
-                      displayState: getIndividualDisplayState(individualFieldRightBottom),
-                      individualObj: individualFieldRightBottom,
-                      newDur,
-                      templatesObj,
-                    })
-                  : nothing}
-              </div>`
-            : html`<div class="spacer"></div>`}
-          ${flowElement(this._config, {
-            battery,
-            grid,
-            individual: individualObjs,
-            newDur,
-            solar,
-            charger,
-          })}
-          </div>
-          ${zone("right")}
+                ${checkHasRightIndividual(individualObjs) ? html` <div class="spacer"></div>` : nothing}
+              </div>
+              ${battery.has || charger.has || checkHasBottomIndividual(individualObjs)
+                ? html`<div class="row">
+                    ${charger.has ? chargerElement(this, this._config, { charger, entities, templatesObj }) : html`<div class="spacer"></div>`}
+                    ${battery.has ? batteryElement(this, this._config, { battery, entities }) : html`<div class="spacer"></div>`}
+                    ${individualFieldLeftBottom
+                      ? individualLeftBottomElement(this, this._config, {
+                          displayState: getIndividualDisplayState(individualFieldLeftBottom),
+                          individualObj: individualFieldLeftBottom,
+                          newDur,
+                          templatesObj,
+                        })
+                      : html`<div class="spacer"></div>`}
+                    ${checkHasRightIndividual(individualObjs)
+                      ? individualRightBottomElement(this, this._config, {
+                          displayState: getIndividualDisplayState(individualFieldRightBottom),
+                          individualObj: individualFieldRightBottom,
+                          newDur,
+                          templatesObj,
+                        })
+                      : nothing}
+                  </div>`
+                : html`<div class="spacer"></div>`}
+              ${flowElement(this._config, {
+                battery,
+                grid,
+                individual: individualObjs,
+                newDur,
+                solar,
+                charger,
+              })}
+            </div>
+            ${zone("right")}
           </div>
           ${zone("bottom")}
         </div>
@@ -846,9 +857,7 @@ export class PowerFlowCardPlus extends LitElement {
           energyCharged: this.energyValue(unit?.energy_charged_entity, unit?.energy_from_state),
           energyDischarged: this.energyValue(unit?.energy_discharged_entity, unit?.energy_from_state),
           stateColor:
-            this._config.color_battery_by_discharge === true
-              ? usageColor(Math.max(0, -(sub.state ?? 0)), dischargeMax) || undefined
-              : undefined,
+            this._config.color_battery_by_discharge === true ? usageColor(Math.max(0, -(sub.state ?? 0)), dischargeMax) || undefined : undefined,
         };
         // Tint by state of charge, unless the battery carries an explicit colour.
         return this._config.color_battery_by_soc === true && withEnergy.color === undefined && withEnergy.soc !== null && withEnergy.soc !== undefined
@@ -893,12 +902,13 @@ export class PowerFlowCardPlus extends LitElement {
       has: entities.charger?.entity !== undefined && checkIfHasBattery() && (entities.charger?.display_zero !== false || chargerIsActive),
       energy: this.energyValue(entities.charger?.energy_entity, entities.charger?.energy_from_state),
       // A single source repeats the node's own value, so it is not listed by default.
-      subs: (entities.charger?.show_breakdown ?? (entities.charger?.sources?.length ?? 0) > 1)
-        ? getChargerSubs(this.hass, this._config).map((sub, index) => {
-            const source = entities.charger?.sources?.[index];
-            return { ...sub, energy: this.energyValue(source?.energy_entity, source?.energy_from_state) };
-          })
-        : [],
+      subs:
+        (entities.charger?.show_breakdown ?? (entities.charger?.sources?.length ?? 0) > 1)
+          ? getChargerSubs(this.hass, this._config).map((sub, index) => {
+              const source = entities.charger?.sources?.[index];
+              return { ...sub, energy: this.energyValue(source?.energy_entity, source?.energy_from_state) };
+            })
+          : [],
       name: computeFieldName(this.hass, entities.charger, localize("editor.charger")),
       icon: computeFieldIcon(this.hass, entities.charger, "mdi:ev-station"),
       state: {
@@ -1016,31 +1026,32 @@ export class PowerFlowCardPlus extends LitElement {
       circleCircumference *
       ((totalHomeConsumption - (nonFossil.state.power ?? 0) - (battery.state.toHome ?? 0) - (solar.state.toHome ?? 0)) / totalHomeConsumption);
     const homeEnergy = this.energyValue(entities.home?.energy_entity, entities.home?.energy_from_state);
-    const homeUsageToDisplay = this._energyMode && homeEnergy !== null
-      ? displayEnergy(this.hass, this._config, homeEnergy)
-      : entities.home?.override_state && entities.home.entity
-        ? entities.home?.subtract_individual
-          ? displayValue(this.hass, this._config, getEntityStateWatts(this.hass, entities.home.entity) - totalIndividualConsumption, {
-              unit: entities.home?.unit_of_measurement,
-              unitWhiteSpace: entities.home?.unit_white_space,
-              watt_threshold: this._config.watt_threshold,
-            })
-          : displayValue(this.hass, this._config, getEntityStateWatts(this.hass, entities.home.entity), {
-              unit: entities.home?.unit_of_measurement,
-              unitWhiteSpace: entities.home?.unit_white_space,
-              watt_threshold: this._config.watt_threshold,
-            })
-        : entities.home?.subtract_individual
-          ? displayValue(this.hass, this._config, totalHomeConsumption - totalIndividualConsumption || 0, {
-              unit: entities.home?.unit_of_measurement,
-              unitWhiteSpace: entities.home?.unit_white_space,
-              watt_threshold: this._config.watt_threshold,
-            })
-          : displayValue(this.hass, this._config, totalHomeConsumption, {
-              unit: entities.home?.unit_of_measurement,
-              unitWhiteSpace: entities.home?.unit_white_space,
-              watt_threshold: this._config.watt_threshold,
-            });
+    const homeUsageToDisplay =
+      this._energyMode && homeEnergy !== null
+        ? displayEnergy(this.hass, this._config, homeEnergy)
+        : entities.home?.override_state && entities.home.entity
+          ? entities.home?.subtract_individual
+            ? displayValue(this.hass, this._config, getEntityStateWatts(this.hass, entities.home.entity) - totalIndividualConsumption, {
+                unit: entities.home?.unit_of_measurement,
+                unitWhiteSpace: entities.home?.unit_white_space,
+                watt_threshold: this._config.watt_threshold,
+              })
+            : displayValue(this.hass, this._config, getEntityStateWatts(this.hass, entities.home.entity), {
+                unit: entities.home?.unit_of_measurement,
+                unitWhiteSpace: entities.home?.unit_white_space,
+                watt_threshold: this._config.watt_threshold,
+              })
+          : entities.home?.subtract_individual
+            ? displayValue(this.hass, this._config, totalHomeConsumption - totalIndividualConsumption || 0, {
+                unit: entities.home?.unit_of_measurement,
+                unitWhiteSpace: entities.home?.unit_white_space,
+                watt_threshold: this._config.watt_threshold,
+              })
+            : displayValue(this.hass, this._config, totalHomeConsumption, {
+                unit: entities.home?.unit_of_measurement,
+                unitWhiteSpace: entities.home?.unit_white_space,
+                watt_threshold: this._config.watt_threshold,
+              });
     const totalLines =
       (grid.state.toHome ?? 0) +
       (solar.state.toHome ?? 0) +
