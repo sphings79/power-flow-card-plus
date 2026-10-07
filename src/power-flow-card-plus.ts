@@ -605,6 +605,14 @@ export class PowerFlowCardPlus extends LitElement {
       </div>`;
     };
 
+    // Outline of the circles for the filled appearances: 0 turns it off, 1 to 4 draws
+    // it in the node colour, anything else leaves the appearance's own default.
+    const outlineRaw = this._config.circle_outline;
+    const outline =
+      outlineRaw === undefined || outlineRaw === null || `${outlineRaw}` === "" || !Number.isFinite(Number(outlineRaw))
+        ? null
+        : Math.min(4, Math.max(0, Number(outlineRaw)));
+
     const cardContentClasses = [
       "card-content",
       this._config.full_size && "full-size",
@@ -614,6 +622,8 @@ export class PowerFlowCardPlus extends LitElement {
       this._config.appearance === "bubble" && "appearance-bubble",
       (hasSideZone || reserveAny) && "has-side-zone",
       maxWidth && "has-max-width",
+      outline === 0 && "no-circle-outline",
+      outline !== null && outline > 0 && "has-circle-outline",
     ]
       .filter(Boolean)
       .join(" ");
@@ -627,7 +637,9 @@ export class PowerFlowCardPlus extends LitElement {
         <div
           class=${cardContentClasses}
           id="power-flow-card-plus"
-          style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${circleTintStyle(this._config.circle_tint)}${this._config.style_card_content ?? ""}"
+          style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${circleTintStyle(this._config.circle_tint)}${outline
+            ? `--pfcp-circle-outline: ${outline}px;`
+            : ""}${this._config.style_card_content ?? ""}"
         >
           ${zone("top")}
           <!--

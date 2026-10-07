@@ -43,6 +43,13 @@ interface mainConfigOptions {
    */
   circle_tint?: number;
   /**
+   * Outline around the circles in pixels (0 to 4), drawn in the node's colour, for
+   * the `mushroom` and `bubble` appearances. `0` removes any outline. Unset keeps the
+   * appearance's own default (none for mushroom, a thin tinted one for bubble).
+   * Has no effect on `classic`, whose circles always have their ring.
+   */
+  circle_outline?: number;
+  /**
    * Ordering of the individual devices.
    * `true` keeps the original behaviour (highest power first); pass `"name"` or
    * `"name_desc"` to sort alphabetically instead.

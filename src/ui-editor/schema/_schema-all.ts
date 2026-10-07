@@ -60,6 +60,7 @@ export const cardConfigStruct = assign(
     sort_individual_devices: optional(union([boolean(), string()])),
     individual_position: optional(string()),
     circle_tint: optional(number()),
+    circle_outline: optional(number()),
     reserve_side_width: optional(boolean()),
     max_width: optional(number()),
     solar_position: optional(string()),
@@ -309,6 +310,11 @@ export const advancedOptionsSchema = memoizeOne((localize, displayZeroLinesMode:
         name: "circle_tint",
         label: "Circle tint in % (mushroom / bubble, empty = default)",
         selector: { number: { mode: "box", min: 0, max: 100, step: 1, unit_of_measurement: "%" } },
+      },
+      {
+        name: "circle_outline",
+        label: "Circle outline in px (mushroom / bubble, 0 = none, empty = default)",
+        selector: { number: { mode: "box", min: 0, max: 4, step: 1, unit_of_measurement: "px" } },
       },
       {
         name: "reserve_side_width",

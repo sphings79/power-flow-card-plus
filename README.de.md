@@ -330,6 +330,17 @@ entities:
 
 Jede Knoten-Seite im Editor hat das Feld, der kartenweite Wert steht in den erweiterten Optionen. Bei `classic` ohne Wirkung.
 
+### Rand der Kreise (`circle_outline`)
+
+`mushroom` zeichnet die Kreise ohne Rand, `bubble` mit einem dünnen, getönten. `circle_outline` überschreibt das für die ganze Karte, in Pixeln:
+
+```yaml
+appearance: mushroom
+circle_outline: 2      # 0 = kein Rand, 1-4 = Rand in der Farbe des Knotens; leer = Standard der Optik
+```
+
+Bei `classic` ohne Wirkung, dessen Kreise behalten immer ihren Ring.
+
 ### Bubble-Optik
 
 `appearance: bubble` gestaltet die Karte nach [Bubble Card](https://github.com/Clooos/Bubble-Card): weiche Blasen mit dünnem Rand und Schatten statt Ringen, Listeneinträge als Pillen mit rundem Icon, erhabene Pillen-Knöpfe für den W/kWh-Schalter und die Zeitraum-Leiste (der aktive gefüllt mit der Akzentfarbe) und eine abgerundete Karte. Sie liest die `--bubble-*`-Theme-Variablen (`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-main-background-color`, `--bubble-icon-background-color`) und fällt ohne sie auf dein HA-Theme zurück. Wie `mushroom` ist das ein reiner Stilschalter.

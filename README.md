@@ -386,6 +386,18 @@ entities:
 Every node page in the editor has the field, and the card-wide value sits in the
 advanced options. Has no effect on `classic`.
 
+### Circle outline (`circle_outline`)
+
+`mushroom` draws its circles without an outline, `bubble` with a thin tinted one.
+`circle_outline` overrides that for the whole card, in pixels:
+
+```yaml
+appearance: mushroom
+circle_outline: 2      # 0 = no outline, 1-4 = outline in the node's colour; unset = appearance default
+```
+
+Has no effect on `classic`, whose circles always keep their ring.
+
 ### Bubble appearance
 
 `appearance: bubble` styles the card after [Bubble Card](https://github.com/Clooos/Bubble-Card):

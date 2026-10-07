@@ -1267,4 +1267,16 @@ export const styles = css`
     border-radius: 999px;
     margin-left: 0;
   }
+
+  /* Explicit circle outline (config: circle_outline). Placed last so it wins over
+     the appearance defaults above, for mushroom and bubble alike. */
+  .card-content.appearance-mushroom.has-circle-outline .circle {
+    border-style: solid;
+    border-width: var(--pfcp-circle-outline, 2px);
+    border-color: var(--pfcp-shape, var(--pfcp-shape-fallback));
+  }
+
+  .card-content.appearance-mushroom.no-circle-outline .circle {
+    border-color: transparent;
+  }
 `;
