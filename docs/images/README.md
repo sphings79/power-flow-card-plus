@@ -1,4 +1,8 @@
-# Illustrations
+# Illustrations and screenshots
+
+The `screenshots/` folder holds real captures from a running Home Assistant, one set in `light/` and one in `dark/`. They are used by the README (via `<picture>`, so the browser picks the matching mode) and by [`../screenshots.md`](../screenshots.md).
+
+The SVG files below are different:
 
 The README uses the SVG illustrations in this folder. They are drawn by hand, not captured from a
 running instance, and are deliberately schematic: they show the card's layout and what this fork
@@ -16,6 +20,3 @@ adds, without pretending to be a screenshot of anyone's dashboard.
 | `demo-full.svg` | Fully configured card |
 | `demo-individual-devices.svg` | More individual devices than the upstream limit of four |
 | `ui-editor.svg` | The visual card editor |
-
-If you would rather have real captures, replace the `<img src="...">` targets in the README. A
-browser window around 500 px wide makes the card fill the frame nicely.
