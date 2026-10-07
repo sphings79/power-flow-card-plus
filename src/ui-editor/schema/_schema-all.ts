@@ -59,6 +59,7 @@ export const cardConfigStruct = assign(
     // Accepts the legacy boolean as well as the sort-mode strings.
     sort_individual_devices: optional(union([boolean(), string()])),
     individual_position: optional(string()),
+    circle_tint: optional(number()),
     reserve_side_width: optional(boolean()),
     max_width: optional(number()),
     solar_position: optional(string()),
@@ -303,6 +304,11 @@ export const advancedOptionsSchema = memoizeOne((localize, displayZeroLinesMode:
             mode: "dropdown",
           },
         },
+      },
+      {
+        name: "circle_tint",
+        label: "Circle tint in % (mushroom / bubble, empty = default)",
+        selector: { number: { mode: "box", min: 0, max: 100, step: 1, unit_of_measurement: "%" } },
       },
       {
         name: "reserve_side_width",

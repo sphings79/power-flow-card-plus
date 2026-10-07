@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing } from "lit";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { displayEnergy, displayValue } from "@/utils/display-value";
@@ -11,7 +12,7 @@ export const gridElement = (
   { entities, grid, templatesObj }: { entities: ConfigEntities; grid: any; templatesObj: TemplatesObj }
 ) => {
   const disableEntityClick = config.clickable_entities === false;
-  return html`<div class="circle-container grid">
+  return html`<div class="circle-container grid" style=${circleTintStyle(config.entities.grid?.circle_tint)}>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"
       @click=${(e: MouseEvent) => {

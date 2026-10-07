@@ -370,6 +370,22 @@ barely does.
 PV sources and charging sources take `energy_entity` too, so their kWh appear in
 the list alongside the batteries and individual devices.
 
+### Circle tint (`circle_tint`)
+
+For `mushroom` and `bubble`, the circles are filled with the node's colour. The
+strength is adjustable, in percent:
+
+```yaml
+appearance: bubble
+circle_tint: 35        # 0 = neutral background, 100 = solid; default 20 (mushroom) / 22 (bubble)
+entities:
+  solar:
+    circle_tint: 60    # a single node can override the card-wide value
+```
+
+Every node page in the editor has the field, and the card-wide value sits in the
+advanced options. Has no effect on `classic`.
+
 ### Bubble appearance
 
 `appearance: bubble` styles the card after [Bubble Card](https://github.com/Clooos/Bubble-Card):

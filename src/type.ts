@@ -36,6 +36,11 @@ export interface BaseConfigEntity extends ActionConfigSet {
   unit_of_measurement?: string;
   unit_white_space?: boolean;
   use_metadata?: boolean;
+  /**
+   * Strength of the coloured circle background in percent, for the mushroom and
+   * bubble appearances. Overrides the card-wide `circle_tint` for this node.
+   */
+  circle_tint?: number;
   secondary_info?: SecondaryInfoType;
   invert_state?: boolean;
 }

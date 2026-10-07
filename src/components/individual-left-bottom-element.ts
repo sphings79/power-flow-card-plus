@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { PowerFlowCardPlusConfig } from "@/power-flow-card-plus-config";
@@ -25,7 +26,7 @@ export const individualLeftBottomElement = (
   const disableEntityClick = config.clickable_entities === false;
   const indexOfIndividual = config?.entities?.individual?.findIndex((e) => e.entity === individualObj.entity) || 0;
   const duration = newDur.individual[indexOfIndividual] || 0;
-  return html`<div class="circle-container individual-bottom bottom">
+  return html`<div class="circle-container individual-bottom bottom" style=${circleTintStyle(config?.entities?.individual?.[indexOfIndividual]?.circle_tint)}>
     ${showLine(config, individualObj?.state || 0) && !config.entities.home?.hide
       ? html`
           <svg width="80" height="30">

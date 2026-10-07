@@ -316,6 +316,20 @@ Bei null Ertrag wird die Zeile **grau** statt rot: Nachts nichts zu produzieren 
 
 PV-Quellen und Ladequellen nehmen ebenfalls `energy_entity`, damit ihre kWh in der Liste neben Batterien und Einzelgeräten erscheinen.
 
+### Stärke der Kreis-Tönung (`circle_tint`)
+
+Bei `mushroom` und `bubble` sind die Kreise mit der Farbe des Knotens gefüllt. Die Stärke ist in Prozent einstellbar:
+
+```yaml
+appearance: bubble
+circle_tint: 35        # 0 = neutraler Hintergrund, 100 = voll; Standard 20 (Mushroom) / 22 (Bubble)
+entities:
+  solar:
+    circle_tint: 60    # ein einzelner Knoten kann den kartenweiten Wert überschreiben
+```
+
+Jede Knoten-Seite im Editor hat das Feld, der kartenweite Wert steht in den erweiterten Optionen. Bei `classic` ohne Wirkung.
+
 ### Bubble-Optik
 
 `appearance: bubble` gestaltet die Karte nach [Bubble Card](https://github.com/Clooos/Bubble-Card): weiche Blasen mit dünnem Rand und Schatten statt Ringen, Listeneinträge als Pillen mit rundem Icon, erhabene Pillen-Knöpfe für den W/kWh-Schalter und die Zeitraum-Leiste (der aktive gefüllt mit der Akzentfarbe) und eine abgerundete Karte. Sie liest die `--bubble-*`-Theme-Variablen (`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-main-background-color`, `--bubble-icon-background-color`) und fällt ohne sie auf dein HA-Theme zurück. Wie `mushroom` ist das ein reiner Stilschalter.

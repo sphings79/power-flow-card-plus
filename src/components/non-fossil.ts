@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { generalSecondarySpan } from "./spans/general-secondary-span";
@@ -25,7 +26,7 @@ export const nonFossilElement = (
   const disableEntityClick = config.clickable_entities === false;
   return html`${!nonFossil.hasPercentage
     ? html`<div class="spacer"></div>`
-    : html`<div class="circle-container low-carbon">
+    : html`<div class="circle-container low-carbon" style=${circleTintStyle(config.entities.fossil_fuel_percentage?.circle_tint)}>
         <span class="label">${nonFossil.name}</span>
         <div
           class="circle ${disableEntityClick ? "pointer-events-none" : ""}"

@@ -35,3 +35,14 @@ export function coerceStringArray(value: any, separator: string | RegExp = /\s+/
 
   return result;
 }
+
+/**
+ * Inline style that sets the circle background tint, or an empty string when no
+ * valid value is given so the appearance's own default applies.
+ */
+export const circleTintStyle = (value?: unknown): string => {
+  if (value === undefined || value === null || value === "") return "";
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "";
+  return `--pfcp-circle-tint: ${Math.min(100, Math.max(0, n))}%;`;
+};

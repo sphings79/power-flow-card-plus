@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { individualSecondarySpan } from "./spans/individual-secondary-span";
 import { NewDur, TemplatesObj } from "@/type";
@@ -29,7 +30,7 @@ export const individualRightBottomElement = (
 
   const duration = newDur.individual[indexOfIndividual] || 1.66;
 
-  return html`<div class="circle-container individual-bottom individual-right individual-right-bottom">
+  return html`<div class="circle-container individual-bottom individual-right individual-right-bottom" style=${circleTintStyle(config?.entities?.individual?.[indexOfIndividual]?.circle_tint)}>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"
       @click=${(e: MouseEvent) => {

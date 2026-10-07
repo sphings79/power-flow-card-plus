@@ -5,7 +5,7 @@ import { generalSecondarySpan } from "./spans/general-secondary-span";
 import { displayEnergy, displayValue } from "@/utils/display-value";
 import { TemplatesObj } from "@/type";
 import { getEntityStateWatts } from "@/states/utils/get-entity-state-watts";
-import { isNumberValue } from "@/utils/utils";
+import { circleTintStyle, isNumberValue } from "@/utils/utils";
 
 export const solarElement = (
   main: PowerFlowCardPlus,
@@ -38,7 +38,7 @@ export const solarElement = (
   const secondaryEntity = config.entities.solar?.secondary_info?.entity;
   const secondarySolarStateWatts = secondaryEntity ? Math.max(getEntityStateWatts(main.hass, secondaryEntity), 0) : 0;
   const bottomSolarState = sumTotalConfig ? solar.state.total - secondarySolarStateWatts : solar.state.total;
-  return html`<div class="circle-container solar">
+  return html`<div class="circle-container solar" style=${circleTintStyle(config.entities.solar?.circle_tint)}>
     <span class="label">${solar.name}</span>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"

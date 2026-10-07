@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { individualSecondarySpan } from "./spans/individual-secondary-span";
 import { NewDur, TemplatesObj } from "@/type";
@@ -25,7 +26,7 @@ export const individualLeftTopElement = (
   const disableEntityClick = config.clickable_entities === false;
   const indexOfIndividual = config?.entities?.individual?.findIndex((e) => e.entity === individualObj.entity) || 0;
   const duration = newDur.individual[indexOfIndividual] || 0;
-  return html`<div class="circle-container individual-top">
+  return html`<div class="circle-container individual-top" style=${circleTintStyle(config?.entities?.individual?.[indexOfIndividual]?.circle_tint)}>
     <span class="label">${individualObj.name}</span>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"

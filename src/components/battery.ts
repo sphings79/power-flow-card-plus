@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing } from "lit";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { ConfigEntities, PowerFlowCardPlusConfig } from "@/power-flow-card-plus-config";
@@ -15,7 +16,7 @@ export const batteryElement = (
   }
 ) => {
   const disableEntityClick = config.clickable_entities === false;
-  return html`<div class="circle-container battery">
+  return html`<div class="circle-container battery" style=${circleTintStyle(config.entities.battery?.circle_tint)}>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"
       @click=${(e: MouseEvent) => {

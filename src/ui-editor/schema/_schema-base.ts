@@ -175,6 +175,11 @@ export function getBaseMainConfigSchema(field?: string) {
     schema: [
       { name: "name", selector: { text: {} } },
       { name: "icon", selector: { icon: {} } },
+      {
+        name: "circle_tint",
+        label: "Circle tint in % (mushroom / bubble, empty = card default)",
+        selector: { number: { mode: "box", min: 0, max: 100, step: 1, unit_of_measurement: "%" } },
+      },
     ],
   };
   if (field === "battery" || field === "grid") {

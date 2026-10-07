@@ -48,7 +48,7 @@ import {
 import { displayEnergy, displayValue } from "@/utils/display-value";
 import { defaultValues, getDefaultConfig } from "@/utils/get-default-config";
 import { registerCustomCard } from "@/utils/register-custom-card";
-import { coerceNumber } from "@/utils/utils";
+import { circleTintStyle, coerceNumber } from "@/utils/utils";
 import { checkShouldShowDots } from "@/utils/check-should-show-dots";
 import { IndividualSortMode, sortIndividualObjects } from "@/utils/sort-individual-objects";
 import { productionColor, socColor, usageColor } from "@/utils/usage-color";
@@ -627,7 +627,7 @@ export class PowerFlowCardPlus extends LitElement {
         <div
           class=${cardContentClasses}
           id="power-flow-card-plus"
-          style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${this._config.style_card_content ?? ""}"
+          style="${maxWidth ? `--pfcp-max-width: ${maxWidth}px;` : ""}${circleTintStyle(this._config.circle_tint)}${this._config.style_card_content ?? ""}"
         >
           ${zone("top")}
           <!--

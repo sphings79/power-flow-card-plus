@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { PowerFlowCardPlus } from "@/power-flow-card-plus";
 import { generalSecondarySpan } from "./spans/general-secondary-span";
@@ -44,7 +45,7 @@ export const homeElement = (
   const disableEntityClick = config.clickable_entities === false || !isClickable;
 
   return html`
-    <div class="circle-container home">
+    <div class="circle-container home" style=${circleTintStyle(config.entities.home?.circle_tint)}>
       <div
         class="circle ${disableEntityClick ? "pointer-events-none" : ""}"
         id="home-circle"

@@ -36,6 +36,13 @@ interface mainConfigOptions {
    */
   appearance?: "classic" | "mushroom" | "bubble";
   /**
+   * Strength of the coloured circle background in percent (0 = neutral, 100 = solid)
+   * for the `mushroom` and `bubble` appearances. Unset keeps the appearance's own
+   * default (20 for mushroom, 22 for bubble). A node can override it with its own
+   * `circle_tint`. Has no effect on `classic`.
+   */
+  circle_tint?: number;
+  /**
    * Ordering of the individual devices.
    * `true` keeps the original behaviour (highest power first); pass `"name"` or
    * `"name_desc"` to sort alphabetically instead.

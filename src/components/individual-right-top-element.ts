@@ -1,3 +1,4 @@
+import { circleTintStyle } from "@/utils/utils";
 import { html, nothing, svg } from "lit";
 import { individualSecondarySpan } from "./spans/individual-secondary-span";
 import { NewDur, TemplatesObj } from "@/type";
@@ -34,7 +35,7 @@ export const individualRightTopElement = (
 
   const hasBottomRow = !!battery?.has || checkHasBottomIndividual(individualObjs);
 
-  return html`<div class="circle-container individual-top individual-right individual-right-top">
+  return html`<div class="circle-container individual-top individual-right individual-right-top" style=${circleTintStyle(config?.entities?.individual?.[indexOfIndividual]?.circle_tint)}>
     <span class="label">${individualObj.name}</span>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"

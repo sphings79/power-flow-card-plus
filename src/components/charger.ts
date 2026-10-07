@@ -4,7 +4,7 @@ import { ConfigEntities, PowerFlowCardPlusConfig } from "@/power-flow-card-plus-
 import { generalSecondarySpan } from "./spans/general-secondary-span";
 import { displayEnergy, displayValue } from "@/utils/display-value";
 import { TemplatesObj } from "@/type";
-import { isNumberValue } from "@/utils/utils";
+import { circleTintStyle, isNumberValue } from "@/utils/utils";
 
 /**
  * The external charging source node (V2L, generator, …).
@@ -36,7 +36,7 @@ export const chargerElement = (
     return Number(charger.secondary.state) >= toleranceSet;
   };
 
-  return html`<div class="circle-container charger">
+  return html`<div class="circle-container charger" style=${circleTintStyle(config.entities.charger?.circle_tint)}>
     <div
       class="circle ${disableEntityClick ? "pointer-events-none" : ""}"
       @click=${(e: MouseEvent) => {
