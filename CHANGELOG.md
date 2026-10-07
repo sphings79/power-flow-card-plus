@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For releases before 1.0.0, see the
 [upstream changelog](https://github.com/flixlix/flixlix-cards/blob/main/packages/flixlix-cards/power-flow-card-plus/CHANGELOG.md).
 
+## [1.8.1] - 2026-10-07
+
+### Fixed
+
+- The flow lines of the two right-hand individual devices never showed. They were sized in percent of the diagram, but their positioned container made that a percentage of an 80 px box, so they came out zero wide. They are now drawn from the measured positions of the device and home circles, so they attach to the circles at any card width and meet the home circle above and below its centre line.
+- The charging-source line (V2L) ran past the battery when a device sat in the right-hand column. With four slots in the row the battery is the second of four, not the middle, and the line is shortened accordingly.
+- Mushroom and bubble tinted the PV, grid, home and battery circles with the icon colour, which is the plain text colour unless `color_icon` is set, so they came out grey. They now use the circle colour, the same colour the classic look draws as its ring. This also colours `circle_outline`.
+- The values in the breakdown lists did not line up: a short value such as 1 W made its cell narrower than 1,000 W. The value columns now have a fixed minimum width and are right-aligned.
+- On narrow cards two breakdown lists sat side by side, overlapped and ran out of the card. Lists now need at least 280 px and stack instead, and a name keeps a minimum width so it is never cut down to one letter.
+
+### Added
+
+- Screenshots of the card in the classic, mushroom and bubble look, in light and dark mode, in English and German: a few in each README, all of them on a [screenshot page](docs/screenshots.md) ([Deutsch](docs/screenshots.de.md)).
+
 ## [1.8.0] - 2026-10-07
 
 ### Added
