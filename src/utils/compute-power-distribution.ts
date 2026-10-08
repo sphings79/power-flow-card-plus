@@ -143,6 +143,16 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
     nonFossil.hasPercentage = false;
   }
 
+  // What the battery node shows: with the external source pushing in more than the net
+  // charge, the batteries take in the full external power and give the excess back to
+  // the house, so both arrows grow by the excess. Done last, the distribution above
+  // works on the readings as they came in.
+  const excessFromExternal = external - coveredByExternal;
+  if (battery.has && excessFromExternal > 0) {
+    battery.state.toBattery = (battery.state.toBattery ?? 0) + excessFromExternal;
+    battery.state.fromBattery = (battery.state.fromBattery ?? 0) + excessFromExternal;
+  }
+
   if (nonFossil.has) {
     const nonFossilFuelDecimal = 1 - (getEntityState(entities.fossil_fuel_percentage?.entity) ?? 0) / 100;
     nonFossil.state.power = (grid.state.toHome ?? 0) * nonFossilFuelDecimal;

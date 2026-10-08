@@ -347,6 +347,9 @@ describe("power distribution after solar and battery", () => {
 
     // 2471 - 1713 = 758 W leave the batteries towards the house, plus 24 W from the grid.
     expect(battery.state.toHome).toBe(758);
+    // The battery node shows both directions: 2471 W in, 758 W out (net 1713 W).
+    expect(battery.state.toBattery).toBe(2471);
+    expect(battery.state.fromBattery).toBe(758);
     expect(grid.state.toHome).toBe(24);
     expect(solar.state.toHome).toBe(0);
     expect(grid.state.toBattery).toBe(0);
