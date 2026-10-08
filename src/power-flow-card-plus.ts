@@ -613,6 +613,10 @@ export class PowerFlowCardPlus extends LitElement {
         ? null
         : Math.min(4, Math.max(0, Number(outlineRaw)));
 
+    // Narrow means too little room for the diagram plus a side list. Until the card has
+    // been measured, fall back to the window width so a phone does not flash the wide layout.
+    const isNarrow = this._width ? this._width <= 660 : window.innerWidth <= 660;
+
     const cardContentClasses = [
       "card-content",
       this._config.full_size && "full-size",
@@ -622,6 +626,7 @@ export class PowerFlowCardPlus extends LitElement {
       this._config.appearance === "bubble" && "appearance-bubble",
       (hasSideZone || reserveAny) && "has-side-zone",
       maxWidth && "has-max-width",
+      isNarrow && "is-narrow",
       outline === 0 && "no-circle-outline",
       outline !== null && outline > 0 && "has-circle-outline",
     ]

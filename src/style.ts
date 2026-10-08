@@ -826,19 +826,23 @@ export const styles = css`
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Narrow cards: the rail drops below the diagram instead of squeezing it. */
-  @media (max-width: 660px) {
-    .pfcp-layout {
-      flex-wrap: wrap;
-    }
-    .card-content.has-side-zone .pfcp-flow {
-      flex: 1 1 100%;
-      margin: 0 auto;
-    }
-    /* No space is held back on a narrow card: the lists sit below the diagram. */
-    .pfcp-zone-reserved {
-      display: none;
-    }
+  /* Narrow cards: the rail drops below the diagram instead of squeezing it. The
+     is-narrow class follows the width of the card itself, not of the browser window,
+     so a card in a narrow dashboard column on a wide screen gets this layout too. It
+     is a class and not a container query because the build's CSS minifier does not
+     know @container and strips the at-rule, which would apply these rules everywhere. */
+  .card-content.is-narrow .pfcp-layout {
+    flex-wrap: wrap;
+  }
+  .card-content.is-narrow.has-side-zone .pfcp-flow {
+    flex: 1 1 100%;
+    margin: 0 auto;
+  }
+  /* No space is held back on a narrow card: the lists sit below the diagram. Three
+     classes, because the general .pfcp-breakdown rule further down sets display: flex
+     and would otherwise win and keep an empty strip under the diagram. */
+  .card-content.is-narrow .pfcp-breakdown.pfcp-zone-reserved {
+    display: none;
   }
 
   /*
