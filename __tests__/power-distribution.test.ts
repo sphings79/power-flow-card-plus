@@ -316,4 +316,39 @@ describe("power distribution after solar and battery", () => {
     expect(b).toEqual(a);
     expect(a.solar.state.toHome).toBe(732);
   });
+
+  test("scenario: V2L delivers more than the net battery charge, the excess feeds the house", () => {
+    const grid = {
+      icon: "grid",
+      powerOutage: { isOutage: false, icon: "outage" },
+      state: { fromGrid: 24, toGrid: 0, toBattery: 0, toHome: null as number | null },
+    };
+    const solar = {
+      has: true,
+      state: { total: 0, toHome: null as number | null, toBattery: null as number | null, toGrid: null as number | null },
+    };
+    // Net reading of all batteries: 1713 W charge while V2L pushes in 2471 W.
+    const battery = {
+      has: true,
+      state: { fromBattery: 0, toBattery: 1713, toGrid: 0, toHome: null as number | null },
+    };
+    const nonFossil = { has: false, hasPercentage: false, state: { power: null as number | null } };
+
+    computePowerDistributionAfterSolarAndBattery({
+      entities: { grid: {}, battery: {}, solar: {}, fossil_fuel_percentage: {} },
+      grid,
+      solar,
+      battery,
+      nonFossil,
+      getEntityStateWatts: () => 0,
+      getEntityState: () => 0,
+      chargerToBattery: 2471,
+    });
+
+    // 2471 - 1713 = 758 W leave the batteries towards the house, plus 24 W from the grid.
+    expect(battery.state.toHome).toBe(758);
+    expect(grid.state.toHome).toBe(24);
+    expect(solar.state.toHome).toBe(0);
+    expect(grid.state.toBattery).toBe(0);
+  });
 });

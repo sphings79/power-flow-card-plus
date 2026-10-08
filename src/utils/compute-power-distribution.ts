@@ -63,18 +63,24 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
   getEntityState: ComputeEntityState;
   /**
    * Power an external charging source (V2L, generator, ...) pushes straight into the
-   * battery. It is part of the battery's total charge reading but never passes the
-   * house, so it must not be taken away from what solar and grid supply.
+   * battery. It is part of the battery readings but never passes the house, so it must
+   * neither be taken away from what solar and grid supply nor count as house supply.
    */
   chargerToBattery?: number | null;
 }): void {
   const { entities, grid, solar, battery, nonFossil, getEntityStateWatts, getEntityState } = params;
 
-  // What solar and grid have to cover: the battery's charge without the external part.
-  // Without this a V2L charge larger than the solar surplus drives solar-to-home
-  // negative and the home consumption collapses to zero.
-  const batteryChargeFromHouse =
-    battery.state.toBattery === null ? null : Math.max(0, battery.state.toBattery - Math.max(0, params.chargerToBattery ?? 0));
+  // The battery readings are what flows into and out of the batteries as a whole, an
+  // external source (V2L, generator) included. That part never passes the house, so it
+  // is taken off first. What it covers of the charge is not asked of solar and grid, and
+  // what it delivers beyond the charge has left the batteries again towards the house:
+  // with 2471 W from V2L and a net charge of 1713 W, 758 W are being drawn from them.
+  // Without this the home consumption collapses to zero while V2L is charging.
+  const external = Math.max(0, params.chargerToBattery ?? 0);
+  const chargeIn = battery.state.toBattery;
+  const coveredByExternal = Math.min(external, chargeIn ?? 0);
+  const batteryChargeFromHouse = chargeIn === null ? null : chargeIn - coveredByExternal;
+  const batteryDischargeToHouse = (battery.state.fromBattery ?? 0) + (external - coveredByExternal);
 
   if (solar.has) {
     solar.state.toHome = (solar.state.total ?? 0) - (grid.state.toGrid ?? 0) - (batteryChargeFromHouse ?? 0);
@@ -119,7 +125,7 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
     }
 
     battery.state.toGrid = (battery.state.toGrid || 0) > largestGridBatteryTolerance ? battery.state.toGrid || 0 : 0;
-    battery.state.toHome = (battery.state.fromBattery ?? 0) - (battery.state.toGrid ?? 0);
+    battery.state.toHome = batteryDischargeToHouse - (battery.state.toGrid ?? 0);
   }
 
   grid.state.toHome = Math.max((grid.state.fromGrid ?? 0) - (grid.state.toBattery ?? 0), 0);
