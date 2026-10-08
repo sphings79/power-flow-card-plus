@@ -295,14 +295,22 @@ describe("power distribution after solar and battery", () => {
 
   test("without a charger the result is unchanged", () => {
     const base = () => ({
-      grid: { icon: "grid", powerOutage: { isOutage: false, icon: "outage" }, state: { fromGrid: 0, toGrid: 25, toBattery: 0, toHome: null as number | null } },
+      grid: {
+        icon: "grid",
+        powerOutage: { isOutage: false, icon: "outage" },
+        state: { fromGrid: 0, toGrid: 25, toBattery: 0, toHome: null as number | null },
+      },
       solar: { has: true, state: { total: 991, toHome: null as number | null, toBattery: null as number | null, toGrid: null as number | null } },
       battery: { has: true, state: { fromBattery: 0, toBattery: 234, toGrid: 0, toHome: null as number | null } },
       nonFossil: { has: false, hasPercentage: false, state: { power: null as number | null } },
     });
     const a = base();
     const b = base();
-    const common = { entities: { grid: {}, battery: {}, solar: {}, fossil_fuel_percentage: {} }, getEntityStateWatts: () => 0, getEntityState: () => 0 };
+    const common = {
+      entities: { grid: {}, battery: {}, solar: {}, fossil_fuel_percentage: {} },
+      getEntityStateWatts: () => 0,
+      getEntityState: () => 0,
+    };
     computePowerDistributionAfterSolarAndBattery({ ...common, ...a });
     computePowerDistributionAfterSolarAndBattery({ ...common, ...b, chargerToBattery: 0 });
     expect(b).toEqual(a);
