@@ -1,7 +1,7 @@
 {
   "name": "power-flow-card-plus-mushroom",
   "private": true,
-  "version": "1.8.1",
+  "version": "1.8.2",
   "type": "module",
   "description": "A power flow card for Home Assistant (fork with multiple batteries, multiple PV sources and unlimited individual devices)",
   "keywords": [

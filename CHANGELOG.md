@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For releases before 1.0.0, see the
 [upstream changelog](https://github.com/flixlix/flixlix-cards/blob/main/packages/flixlix-cards/power-flow-card-plus/CHANGELOG.md).
 
+## [1.8.2] - 2026-10-08
+
+### Fixed
+
+- Charging the battery from an external source (V2L, generator) could drive the home consumption to zero. The battery's charge reading includes what such a source pushes in directly; that part never passes the house, but it was taken from the solar surplus, so a charge larger than the surplus made solar-to-home negative. The charger power is now subtracted before solar and grid are allocated; the battery node still shows its full charge.
+- A short list in the side rail left a tall empty gap below it, which showed on narrow cards where the rail drops under the diagram. The rail is a column, so the flex-basis of a list acted as its minimum height; the lists no longer hold one.
+- `reserve_side_width` kept an empty strip under the diagram on narrow cards: the placeholder was meant to disappear there, but a more general rule won. A card now counts as narrow by its own width (up to 660 px) and not by the width of the browser window, so a card in a narrow dashboard column on a wide screen gets the narrow layout too.
+
 ## [1.8.1] - 2026-10-07
 
 ### Fixed
