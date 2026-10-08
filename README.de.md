@@ -386,7 +386,7 @@ Bei `classic` ohne Wirkung, dessen Kreise behalten immer ihren Ring.
 
 ### Bubble-Optik
 
-`appearance: bubble` gestaltet die Karte nach [Bubble Card](https://github.com/Clooos/Bubble-Card): weiche Blasen mit dünnem Rand und Schatten statt Ringen, Listeneinträge als Pillen mit rundem Icon, erhabene Pillen-Knöpfe für den W/kWh-Schalter und die Zeitraum-Leiste (der aktive gefüllt mit der Akzentfarbe) und eine abgerundete Karte. Sie liest die `--bubble-*`-Theme-Variablen (`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-main-background-color`, `--bubble-icon-background-color`) und fällt ohne sie auf dein HA-Theme zurück. Wie `mushroom` ist das ein reiner Stilschalter.
+`appearance: bubble` gestaltet die Karte nach [Bubble Card](https://github.com/Clooos/Bubble-Card): weiche Blasen mit dünnem Rand und Schatten statt Ringen, Listeneinträge als Pillen mit rundem Icon, erhabene Pillen-Knöpfe für den W/kWh-Schalter und die Zeitraum-Leiste (der aktive gefüllt mit der Akzentfarbe) und eine abgerundete Karte. Sie liest die `--bubble-*`-Theme-Variablen (`--bubble-accent-color`, `--bubble-border-radius`, `--bubble-main-background-color`, `--bubble-icon-background-color`) und fällt ohne sie auf dein HA-Theme zurück. Das funktioniert nur für **global** gesetzte Variablen, zum Beispiel in einem Home-Assistant-Theme. Einstellungen, die eine Bubble Card selbst mitbringt (ihre Karten-Styles oder ein Bubble-Modul, das `--bubble-border-radius` in jeder Bubble Card setzt), sieht diese Karte nicht und behält in dem Fall ihre eigenen Rundungen. Wie `mushroom` ist das ein reiner Stilschalter.
 
 ### Mushroom-Optik
 

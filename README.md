@@ -447,10 +447,14 @@ Has no effect on `classic`, whose circles always keep their ring.
 soft bubbles with a thin outline and shadow instead of rings, pill-shaped list
 entries with a round icon, raised pill buttons for the W / kWh switch and the
 period picker (the active one filled with the accent colour), and a rounded card.
-It reads the `--bubble-*` theme variables (`--bubble-accent-color`,
+It reads the `--bubble-*` variables (`--bubble-accent-color`,
 `--bubble-border-radius`, `--bubble-main-background-color`,
 `--bubble-icon-background-color`) and falls back to your Home Assistant theme
-when they are not set. Like `mushroom`, it is a pure styling switch.
+when they are not set. This only works for variables defined **globally**, for
+example in a Home Assistant theme. Settings that a Bubble Card carries itself
+(its card styles, or a Bubble module that sets `--bubble-border-radius` inside
+each Bubble Card) are not visible to this card, so it keeps its own radii in that
+case. Like `mushroom`, it is a pure styling switch.
 
 ### Mushroom appearance
 
