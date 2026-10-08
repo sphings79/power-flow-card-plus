@@ -728,8 +728,11 @@ export const styles = css`
     max-width: 470px;
   }
 
+  /* The rail is a column, so the 160px flex-basis of a group would become its
+     minimum height and leave a tall empty gap below short lists. */
   .pfcp-zone-left .pfcp-subs,
   .pfcp-zone-right .pfcp-subs {
+    flex: 0 0 auto;
     min-width: 0;
   }
 
