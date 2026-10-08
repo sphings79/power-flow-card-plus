@@ -250,4 +250,62 @@ describe("power distribution after solar and battery", () => {
     // And Home should stay equal to grid import (no extra PV power added).
     expect(grid.state.toHome).toBe(354);
   });
+
+  test("scenario: external charging (V2L) larger than the solar surplus does not zero the home consumption", () => {
+    const entities = {
+      grid: { display_zero_tolerance: 0 },
+      battery: { display_zero_tolerance: 0 },
+      solar: { display_zero_tolerance: 0 },
+      fossil_fuel_percentage: {},
+    };
+    const grid = {
+      icon: "grid",
+      powerOutage: { isOutage: false, icon: "outage" },
+      state: { fromGrid: 0, toGrid: 25, toBattery: 0, toHome: null as number | null },
+    };
+    const solar = {
+      has: true,
+      state: { total: 991, toHome: null as number | null, toBattery: null as number | null, toGrid: null as number | null },
+    };
+    // 2705 W flow into the battery, 2471 W of them from the V2L source.
+    const battery = {
+      has: true,
+      state: { fromBattery: 0, toBattery: 2705, toGrid: 0, toHome: null as number | null },
+    };
+    const nonFossil = { has: false, hasPercentage: false, state: { power: null as number | null } };
+
+    computePowerDistributionAfterSolarAndBattery({
+      entities,
+      grid,
+      solar,
+      battery,
+      nonFossil,
+      getEntityStateWatts: () => 0,
+      getEntityState: () => 0,
+      chargerToBattery: 2471,
+    });
+
+    // 991 W of solar: 25 W go to the grid, the 234 W the charger does not cover go
+    // to the battery, the remaining 732 W are the home consumption.
+    expect(solar.state.toHome).toBe(732);
+    expect(solar.state.toBattery).toBe(234);
+    expect(grid.state.toBattery).toBe(0);
+    expect(grid.state.toHome).toBe(0);
+  });
+
+  test("without a charger the result is unchanged", () => {
+    const base = () => ({
+      grid: { icon: "grid", powerOutage: { isOutage: false, icon: "outage" }, state: { fromGrid: 0, toGrid: 25, toBattery: 0, toHome: null as number | null } },
+      solar: { has: true, state: { total: 991, toHome: null as number | null, toBattery: null as number | null, toGrid: null as number | null } },
+      battery: { has: true, state: { fromBattery: 0, toBattery: 234, toGrid: 0, toHome: null as number | null } },
+      nonFossil: { has: false, hasPercentage: false, state: { power: null as number | null } },
+    });
+    const a = base();
+    const b = base();
+    const common = { entities: { grid: {}, battery: {}, solar: {}, fossil_fuel_percentage: {} }, getEntityStateWatts: () => 0, getEntityState: () => 0 };
+    computePowerDistributionAfterSolarAndBattery({ ...common, ...a });
+    computePowerDistributionAfterSolarAndBattery({ ...common, ...b, chargerToBattery: 0 });
+    expect(b).toEqual(a);
+    expect(a.solar.state.toHome).toBe(732);
+  });
 });

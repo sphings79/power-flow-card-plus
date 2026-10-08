@@ -1145,6 +1145,7 @@ export class PowerFlowCardPlus extends LitElement {
       nonFossil,
       getEntityStateWatts: (entityId) => getEntityStateWatts(this.hass, entityId),
       getEntityState: (entityId) => getEntityState(this.hass, entityId),
+      chargerToBattery: charger.has ? charger.state.toBattery : 0,
     });
     const totalIndividualConsumption = individualObjs?.reduce((a, b) => a + (b.has ? b.state || 0 : 0), 0) || 0;
     const totalHomeConsumption = Math.max((grid.state.toHome ?? 0) + (solar.state.toHome ?? 0) + (battery.state.toHome ?? 0), 0);

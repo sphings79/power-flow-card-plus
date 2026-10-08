@@ -61,11 +61,23 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
   nonFossil: NonFossil;
   getEntityStateWatts: ComputeEntityStateWatts;
   getEntityState: ComputeEntityState;
+  /**
+   * Power an external charging source (V2L, generator, ...) pushes straight into the
+   * battery. It is part of the battery's total charge reading but never passes the
+   * house, so it must not be taken away from what solar and grid supply.
+   */
+  chargerToBattery?: number | null;
 }): void {
   const { entities, grid, solar, battery, nonFossil, getEntityStateWatts, getEntityState } = params;
 
+  // What solar and grid have to cover: the battery's charge without the external part.
+  // Without this a V2L charge larger than the solar surplus drives solar-to-home
+  // negative and the home consumption collapses to zero.
+  const batteryChargeFromHouse =
+    battery.state.toBattery === null ? null : Math.max(0, battery.state.toBattery - Math.max(0, params.chargerToBattery ?? 0));
+
   if (solar.has) {
-    solar.state.toHome = (solar.state.total ?? 0) - (grid.state.toGrid ?? 0) - (battery.state.toBattery ?? 0);
+    solar.state.toHome = (solar.state.total ?? 0) - (grid.state.toGrid ?? 0) - (batteryChargeFromHouse ?? 0);
   }
 
   const largestGridBatteryTolerance = Math.max(entities.grid?.display_zero_tolerance ?? 0, entities.battery?.display_zero_tolerance ?? 0);
@@ -80,9 +92,9 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
     }
 
     solar.state.toHome = 0;
-  } else if (battery.state.toBattery !== null && battery.state.toBattery > 0) {
+  } else if (batteryChargeFromHouse !== null && batteryChargeFromHouse > 0) {
     solar.state.toBattery = (solar.state.total ?? 0) - (solar.state.toHome || 0) - (grid.state.toGrid || 0);
-    grid.state.toBattery = (battery.state.toBattery ?? 0) - solar.state.toBattery;
+    grid.state.toBattery = batteryChargeFromHouse - solar.state.toBattery;
   } else {
     grid.state.toBattery = 0;
   }
@@ -94,11 +106,11 @@ export function computePowerDistributionAfterSolarAndBattery(params: {
       if (!battery.state.toGrid) {
         battery.state.toGrid = Math.max(
           0,
-          (grid.state.toGrid || 0) - (solar.state.total || 0) - (battery.state.toBattery || 0) - (grid.state.toBattery || 0)
+          (grid.state.toGrid || 0) - (solar.state.total || 0) - (batteryChargeFromHouse || 0) - (grid.state.toBattery || 0)
         );
       }
 
-      solar.state.toBattery = (battery.state.toBattery ?? 0) - (grid.state.toBattery || 0);
+      solar.state.toBattery = (batteryChargeFromHouse ?? 0) - (grid.state.toBattery || 0);
       if (entities.solar?.display_zero_tolerance) {
         if (entities.solar.display_zero_tolerance >= (solar.state.total || 0)) solar.state.toBattery = 0;
       }
