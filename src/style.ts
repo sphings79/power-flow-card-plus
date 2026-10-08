@@ -1316,11 +1316,25 @@ export const styles = css`
   }
 
   /* Explicit circle outline (config: circle_outline). Placed last so it wins over
-     the appearance defaults above, for mushroom and bubble alike. */
+     the appearance defaults above, for mushroom and bubble alike. It is drawn as an
+     inset shadow and not as a border: a border of another width moves the padding box,
+     and the home circle draws its flow ring as an svg sized to that box, so the ring
+     came out thicker on one side than on the other. */
   .card-content.appearance-mushroom.has-circle-outline .circle {
-    border-style: solid;
-    border-width: var(--pfcp-circle-outline, 2px);
-    border-color: var(--pfcp-shape, var(--pfcp-shape-fallback));
+    border-color: transparent;
+    box-shadow: inset 0 0 0 var(--pfcp-circle-outline, 2px) var(--pfcp-shape, var(--pfcp-shape-fallback));
+  }
+
+  .card-content.appearance-bubble.has-circle-outline .circle {
+    box-shadow:
+      inset 0 0 0 var(--pfcp-circle-outline, 2px) var(--pfcp-shape, var(--pfcp-shape-fallback)),
+      var(--pfcp-bubble-shadow);
+  }
+
+  /* The home circle has no border of its own, the flow ring is its outline; a 1px
+     border from the bubble look would shift that ring off centre the same way. */
+  .card-content.appearance-bubble .home .circle {
+    border-width: 0;
   }
 
   .card-content.appearance-mushroom.no-circle-outline .circle {
