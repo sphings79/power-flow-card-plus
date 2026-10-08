@@ -813,8 +813,11 @@ export const styles = css`
     max-width: var(--pfcp-max-width);
   }
 
+  /* The side rail is a column, so the flex-basis a list gets elsewhere would act as
+     its minimum height here and leave an empty gap below a short list. */
   .pfcp-zone-left .pfcp-subs,
   .pfcp-zone-right .pfcp-subs {
+    flex: 0 0 auto;
     min-width: 0;
   }
 
