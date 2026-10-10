@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 For releases before 1.0.0, see the
 [upstream changelog](https://github.com/flixlix/flixlix-cards/blob/main/packages/flixlix-cards/power-flow-card-plus/CHANGELOG.md).
 
+## [1.8.3] - 2026-10-10
+
+### Fixed
+
+- The flow ring of the home circle was thicker on one side with `circle_outline` set and in the bubble look. The ring is an svg sized to the padding box of the circle, which normally has no border; a border of another width moved that box. `circle_outline` is drawn as an inset shadow now and the home circle keeps a zero border width in the bubble look.
+- While V2L (or another external source) charged the batteries, the home consumption fell back to the grid share. The battery readings are net values: when the external source pushes in more than the net charge, the excess has left the batteries again towards the house. It counts as battery-to-home now.
+- The battery node showed only the net charge in that case. It shows both directions now: the charge grows by the excess and the discharge shows it.
+
+### Changed
+
+- The documentation of the bubble look says that it follows `--bubble-*` variables only when they are defined globally, for example in a theme. Settings a Bubble Card carries itself, such as a module setting `--bubble-border-radius` inside each Bubble Card, are not visible to this card.
+
 ## [1.8.2] - 2026-10-08
 
 ### Fixed
